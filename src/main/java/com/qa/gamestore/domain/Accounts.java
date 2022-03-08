@@ -5,9 +5,10 @@ import lombok.*;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class Accounts {
+	
+	static String hashCode = "udx";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +23,24 @@ public class Accounts {
 	private String phoneNumber;
 	private boolean admin = false;
 	
-	public Accounts(String username, String password, String firstname, String surname, int age, String email, String phoneNumber, boolean admin) {
+	//TO-DO add validation
+	public Accounts(Long id, String username, String password, String firstname, String surname, int age, String email,
+			String phoneNumber, boolean admin) {
+		this.id = id;
 		this.username = username;
-		this.password = password;
+		this.password = this.encrypt(password);
+		this.firstname = firstname;
+		this.surname = surname;
+		this.age = age;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.admin = admin;
+	}
+	
+	public Accounts(String username, String password, String firstname, String surname, int age, String email, String phoneNumber, boolean admin) {
+		//TO-DO add validation
+		this.username = username;
+		this.password = this.encrypt(password);
 		this.firstname = firstname;
 		this.surname = surname;
 		this.age = age;
@@ -44,5 +60,13 @@ public class Accounts {
 		this.admin = newAccount.isAdmin();;
 	}
 	
+	public String encrypt(String password) {
+		String hash = (hashCode + password);
+		//TO-DO complete hashing with salt
+		return hash;
+	}
+
+
+
 	
 }
