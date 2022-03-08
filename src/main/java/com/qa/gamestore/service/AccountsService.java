@@ -3,6 +3,9 @@ package com.qa.gamestore.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Accounts;
@@ -57,6 +60,25 @@ public class AccountsService implements ServiceInterface<Accounts> {
 		}
 		return !(this.repo.existsById(id)); //return true if delete successful
 	}
+	
+//	public boolean validateInput() {
+//		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//		String inUsername = auth.getName();
+//		Object inPassword = auth.getCredentials();
+//		List<Accounts> all = this.repo.findAll();
+//		System.out.println(inUsername);
+//		//System.out.println(inPassword);
+//		UserDetails userDetails = (UserDetails) auth.getPrincipal();
+//		//System.out.println("User has authorities: " + userDetails.getAuthorities());
+//		for (Accounts account: all) {
+//			if (inUsername.equals(account.getUsername()) && inPassword.equals(account.getPassword())) {
+//				System.out.println("user found");
+//				return true;
+//			}
+//		}
+//		return false;
+//		
+//	}
 	
 	
 }
