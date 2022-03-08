@@ -22,7 +22,7 @@ import com.qa.gamestore.domain.Accounts;
 import com.qa.gamestore.service.AccountsService;
 
 @RestController
-@RequestMapping("/gamestore")
+@RequestMapping("/gamestore/accounts")
 public class AccountsController implements ControllerInterface<Accounts> {
 
 	private AccountsService service;
