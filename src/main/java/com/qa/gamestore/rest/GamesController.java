@@ -64,6 +64,10 @@ public class GamesController implements ControllerInterface<Games> {
 	public ResponseEntity<List<Games>> getPlatforms(@PathVariable Long id) {
 		return new ResponseEntity<List<Games>>(this.service.platformById(id), HttpStatus.OK);
 	}
-
+	
+	@GetMapping("/read/genre/{id}")
+	public ResponseEntity<List<Games>> getGenres(@PathVariable Long id) {
+		return new ResponseEntity<List<Games>>(this.service.genreById(id), HttpStatus.OK);
+	}
 	
 }

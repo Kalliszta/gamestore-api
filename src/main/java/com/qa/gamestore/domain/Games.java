@@ -45,6 +45,11 @@ public class Games {
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GamePlatforms> gamePlatforms;
 	
+	@JsonManagedReference
+	@OneToMany(mappedBy= "games", fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
+	private List<GameGenres> gameGenres;
+	
 	//same for genre
 	
 	public void updateFields(Games newGame) {

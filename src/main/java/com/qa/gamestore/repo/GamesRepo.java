@@ -15,4 +15,7 @@ public interface GamesRepo extends JpaRepository<Games, Long> {
 	//TO-DO: Custom queries
 	@Query(value = "SELECT * FROM games LEFT OUTER JOIN game_platforms ON games.id=game_platforms.fk_games_id LEFT OUTER JOIN platforms ON platforms.id=game_platforms.fk_platforms_id WHERE platforms.id = :inputId", nativeQuery = true)
 	public List<Games> getGamesWithPlatformId(@Param("inputId") Long inputId);
+	
+	@Query(value = "SELECT * FROM games LEFT OUTER JOIN game_genres ON games.id=game_genres.fk_games_id LEFT OUTER JOIN genres ON genres.id=game_genres.fk_genres_id WHERE genres.id = :inputId", nativeQuery = true)
+	public List<Games> getGamesWithGenreId(@Param("inputId") Long inputId);
 }
