@@ -2,16 +2,15 @@ package com.qa.gamestore.domain;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -35,14 +34,13 @@ public class Games {
 	private double cost; //TO-DO make sure to see if in money format
 	private boolean onlineGame = false;
 	//private double totalRating;
-	//private double fkGamePlatformId;
-	//private double fkGameGenreId;
-	
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinTable(name = "game_platforms", joinColumns = {@JoinColumn(name= "games_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "platforms_id", referencedColumnName = "id")})
+
 	@JsonManagedReference
 	@OneToMany(mappedBy= "games", fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GamePlatforms> gamePlatforms;
+	
+	//same for genre
 	
 	public void updateFields(Games newGame) {
 		this.name = newGame.getName();
@@ -51,8 +49,6 @@ public class Games {
 		this.cost = newGame.getCost();
 		this.onlineGame = newGame.isOnlineGame();
 		//this.totalRating = newGame.getTotalRating();
-		//this.fkGamePlatformId = newGame.getFkGamePlatformId();
-		//this.fkGameGenreId = newGame.getFkGameGenreId();
 	}
 	
 	
