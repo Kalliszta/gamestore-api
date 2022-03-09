@@ -33,9 +33,9 @@ public class Games {
 	@NonNull
 	private String name;
 	private String description;
-	@NonNull
+	@NonNull //TO-DO fix to make NonNull
 	private int ageRating;
-	@NonNull
+	@NonNull //TO-DO fix to make NonNull
 	private double cost; //TO-DO make sure to see if in money format
 	private boolean onlineGame = false;
 	//private double totalRating;
@@ -50,7 +50,6 @@ public class Games {
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GameGenres> gameGenres;
 	
-	//same for genre
 	
 	public void updateFields(Games newGame) {
 		this.name = newGame.getName();
