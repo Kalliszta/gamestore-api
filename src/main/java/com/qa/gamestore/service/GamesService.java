@@ -62,9 +62,13 @@ public class GamesService implements ServiceInterface<Games> {
 	}
 	
 	
-	//custom queries:
-
+	//### custom query methods go below ###
+	
 	public List<Games> platformById(Long id) {
 		return this.repo.getGamesWithPlatformId(id);
+	}
+	
+	public List<Games> genreById(Long id) {
+		return this.repo.getGamesWithGenreId(id);
 	}
 }
