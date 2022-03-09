@@ -6,7 +6,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class OrderGamesTest {
+public class OrderGames {
+	//TO-DO implement once games in complete
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
