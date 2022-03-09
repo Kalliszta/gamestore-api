@@ -12,7 +12,7 @@ import com.qa.gamestore.service.AccountsService;
 
 
 @RestController
-@RequestMapping("/gamestore")
+@RequestMapping("/gamestore/accounts")
 public class AccountsController implements ControllerInterface<Accounts> {
 	
 	
