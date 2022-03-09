@@ -33,6 +33,7 @@ import lombok.NonNull;
 		private String name;
 		private String company;
 		
+		//relationship with gamePlatforms
 		@JsonManagedReference
 		@OneToMany(mappedBy= "platforms", fetch = FetchType.LAZY)
 		@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children

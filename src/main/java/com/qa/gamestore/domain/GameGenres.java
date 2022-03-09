@@ -25,11 +25,13 @@ import lombok.NoArgsConstructor;
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		
+		//relationship with games
 		@JsonBackReference
 		@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY)
 		@JoinColumn(name="fk_games_id")
 		private Games games;
 		
+		//relationship with genres
 		@JsonBackReference
 		@ManyToOne(targetEntity = Genres.class, fetch = FetchType.LAZY)
 		@JoinColumn(name="fk_genres_id")

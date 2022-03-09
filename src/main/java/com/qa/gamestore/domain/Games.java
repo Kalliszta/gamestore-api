@@ -40,15 +40,23 @@ public class Games {
 	private boolean onlineGame = false;
 	//private double totalRating;
 
+	//relationship with gamePlatforms
 	@JsonManagedReference
-	@OneToMany(mappedBy= "games", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GamePlatforms> gamePlatforms;
 	
+	//relationship with gameGenres
 	@JsonManagedReference
-	@OneToMany(mappedBy= "games", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GameGenres> gameGenres;
+	
+	//relationship with orderGames
+	@JsonManagedReference
+	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
+	private List<OrderGames> orderGames;
 	
 	
 	public void updateFields(Games newGame) {
