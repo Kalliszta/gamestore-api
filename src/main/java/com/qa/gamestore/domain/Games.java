@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import lombok.*;
 
@@ -28,6 +27,18 @@ public class Games {
 	//private double totalRating;
 	//private double fkGamePlatformId;
 	//private double fkGameGenreId;
+	
+	public void updateFields(Games newGame) {
+		this.name = newGame.getName();
+		this.description = newGame.getDescription();
+		this.ageRating = newGame.getAgeRating();
+		this.cost = newGame.getCost();
+		this.online = newGame.isOnline();
+		//this.totalRating = newGame.getTotalRating();
+		//this.fkGamePlatformId = newGame.getFkGamePlatformId();
+		//this.fkGameGenreId = newGame.getFkGameGenreId();
+	}
+	
 	
 	
 }
