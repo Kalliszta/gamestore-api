@@ -25,6 +25,7 @@ import lombok.NonNull;
 	@AllArgsConstructor
 	@Data
 	public class Genres {
+		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
@@ -40,4 +41,5 @@ import lombok.NonNull;
 		public void updateFields(Platforms newInfo) {
 			this.genre = newInfo.getName();
 		}
+		
 }
