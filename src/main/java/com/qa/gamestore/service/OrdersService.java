@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Orders;
-import com.qa.gamestore.repo.AccountsRepo;
 import com.qa.gamestore.repo.OrdersRepo;
 
 @Service
