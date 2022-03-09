@@ -15,7 +15,6 @@ import com.qa.gamestore.service.OrdersService;
 @RequestMapping("/gamestore/orders")
 public class OrdersController implements ControllerInterface<Orders> {
 	
-	
 	private OrdersService service;
 	@Autowired
 	public OrdersController(OrdersService service) {
