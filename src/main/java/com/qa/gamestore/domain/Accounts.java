@@ -1,6 +1,7 @@
 package com.qa.gamestore.domain;
 
 import javax.persistence.*;
+
 import lombok.*;
 
 @Entity
@@ -15,7 +16,7 @@ public class Accounts {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(unique=true)
+	@Column(unique = true)
 	@NonNull
 	private String username;
 	
@@ -36,9 +37,6 @@ public class Accounts {
 	@NonNull
 	private boolean admin = false;
 	
-	
-	@OneToOne(mappedBy = "accounts")
-	private Orders orders;
 	
 	//TO-DO add validation
 	public Accounts(Long id, String username, String password, String firstname, String surname, int age, String email,
