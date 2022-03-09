@@ -8,6 +8,7 @@ import javax.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
@@ -30,7 +31,10 @@ public class Orders {
 	private Date orderDate;
 	
 	//relationship with accounts
-	//TO-DO relationship
+	@JsonBackReference
+	@ManyToOne(targetEntity = Accounts.class, fetch = FetchType.LAZY)
+	@JoinColumn(name="fk_accounts_id")
+	private Accounts accounts;
 	
 	//relationship with OrderGames
 	@JsonManagedReference

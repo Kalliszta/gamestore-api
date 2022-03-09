@@ -1,8 +1,25 @@
 package com.qa.gamestore.domain;
 
-import javax.persistence.*;
+import java.util.List;
 
-import lombok.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
+
 
 @Entity
 @NoArgsConstructor
@@ -37,6 +54,11 @@ public class Accounts {
 	@NonNull
 	private boolean admin = false;
 	
+	//relationship with orders
+	@JsonManagedReference
+	@OneToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
+	private List<Orders> orders;
 	
 	//TO-DO add validation
 	public Accounts(Long id, String username, String password, String firstname, String surname, int age, String email,

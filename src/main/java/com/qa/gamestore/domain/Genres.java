@@ -33,6 +33,7 @@ import lombok.NonNull;
 		@NonNull
 		private String genre;
 		
+		//relationship with gameGenres
 		@JsonManagedReference
 		@OneToMany(mappedBy= "genres", fetch = FetchType.LAZY)
 		@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
