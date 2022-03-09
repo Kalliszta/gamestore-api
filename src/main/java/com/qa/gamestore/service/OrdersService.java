@@ -6,45 +6,44 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.gamestore.domain.Accounts;
-import com.qa.gamestore.repo.AccountsRepo;
+import com.qa.gamestore.domain.Orders;
+import com.qa.gamestore.repo.OrdersRepo;
 
 @Service
-public class AccountsService implements ServiceInterface<Accounts> {
+public class OrdersService implements ServiceInterface<Orders> {
 	
-	private AccountsRepo repo;
+	private OrdersRepo repo;
 	
 	@Autowired
-	public AccountsService(AccountsRepo repo) {
+	public OrdersService(OrdersRepo repo) {
 		this.repo = repo;
 	}
 	
-	
 	@Override
-	public Accounts create(Accounts user) {
+	public Orders create(Orders order) { 
 		//TO-DO exception handling
-		return this.repo.save(user);
+		return this.repo.save(order);
 	}
 	@Override
-	public List<Accounts> readAll() {
+	public List<Orders> readAll() {
 		return this.repo.findAll();
 	}
 
 	@Override
-	public Accounts readById(Long id) {
+	public Orders readById(Long id) {
 		//TO-DO exception handling
-		Optional<Accounts> opUser = this.repo.findById(id);
-		return opUser.get();
+		Optional<Orders> opOrder = this.repo.findById(id);
+		return opOrder.get();
 	}
 
 	@Override
-	public Accounts update(Long id, Accounts newUser) {
+	public Orders update(Long id, Orders newOrder) {
 		//TO-DO exception handling
-		Optional<Accounts> opUser = this.repo.findById(id);
-		if (opUser.isPresent()) {
-			Accounts existingUser = opUser.get();
-			existingUser.updateFields(newUser);
-			return this.repo.save(existingUser);
+		Optional<Orders> opOrder = this.repo.findById(id);
+		if (opOrder.isPresent()) {
+			Orders existingOrder = opOrder.get();
+			existingOrder.updateFields(newOrder);
+			return this.repo.save(existingOrder);
 		}
 		return null;
 	}
