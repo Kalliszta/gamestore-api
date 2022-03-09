@@ -9,4 +9,5 @@ import com.qa.gamestore.domain.Orders;
 public interface OrdersRepo extends JpaRepository<Orders, Long> {
 	
 	//TO-DO: Custom queries
+	
 }
