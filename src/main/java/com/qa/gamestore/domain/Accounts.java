@@ -6,6 +6,7 @@ import lombok.*;
 @Entity
 @NoArgsConstructor
 @Data
+@Table(name = "accounts")
 public class Accounts {
 	
 	static String hashCode = "udx";
@@ -14,14 +15,30 @@ public class Accounts {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(unique=true)
+	@NonNull
 	private String username;
+	
+	@NonNull
 	private String password;
+	
 	private String firstname;
 	private String surname;
+	
+	@NonNull
 	private int age;
+	
+	@NonNull
 	private String email;
+	
 	private String phoneNumber;
+	
+	@NonNull
 	private boolean admin = false;
+	
+	
+	@OneToOne(mappedBy = "accounts")
+	private Orders orders;
 	
 	//TO-DO add validation
 	public Accounts(Long id, String username, String password, String firstname, String surname, int age, String email,
