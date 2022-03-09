@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
 
 import lombok.*;
@@ -32,7 +33,7 @@ public class Games {
 	//private double fkGameGenreId;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "fk_game_platform_id", referencedColumnName = "id")
+	@JoinTable(name = "game_platforms", joinColumns = {@JoinColumn(name= "games_id", referencedColumnName = "id")}, inverseJoinColumns = {@JoinColumn(name = "platforms_id", referencedColumnName = "id")})
 	private Platforms platforms;
 	
 	public void updateFields(Games newGame) {
