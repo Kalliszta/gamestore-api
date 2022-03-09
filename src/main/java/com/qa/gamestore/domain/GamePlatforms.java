@@ -20,17 +20,18 @@ import lombok.NoArgsConstructor;
 	@AllArgsConstructor
 	@Data
 	public class GamePlatforms {
+		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private Long id;
 		
 		@JsonBackReference
-		@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY )
+		@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY)
 		@JoinColumn(name="fk_games_id")
 		private Games games;
 		
 		@JsonBackReference
-		@ManyToOne(targetEntity = Platforms.class, fetch = FetchType.LAZY )
+		@ManyToOne(targetEntity = Platforms.class, fetch = FetchType.LAZY)
 		@JoinColumn(name="fk_platforms_id")
 		private Platforms platforms;
 
