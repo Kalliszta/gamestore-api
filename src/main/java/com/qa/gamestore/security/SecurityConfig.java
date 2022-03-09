@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//TO-DO fix as /create can't be accessed
 		//.antMatchers("**/create") //list of paths that don't require login
 		//.permitAll()
-		.antMatchers("http://localhost:8080/gamestore/accounts/read/all/").hasAuthority(UserRoles.ADMIN.name())
+		.antMatchers("http://localhost:8080/gamestore/accounts/read/all/").hasRole(UserRoles.ADMIN.name())
 		.anyRequest()
 		.authenticated()
 		.and()
