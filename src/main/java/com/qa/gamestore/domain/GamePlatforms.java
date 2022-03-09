@@ -33,5 +33,5 @@ import lombok.NoArgsConstructor;
 		@ManyToOne(targetEntity = Platforms.class, fetch = FetchType.LAZY )
 		@JoinColumn(name="fk_platforms_id")
 		private Platforms platforms;
-		
+
 }
