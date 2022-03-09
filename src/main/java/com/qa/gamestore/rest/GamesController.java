@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.service.GamesService;
 
@@ -59,7 +60,10 @@ public class GamesController implements ControllerInterface<Games> {
 	}
 	
 	//custom query mappings go here
-	
+	@GetMapping("/read/platform/{id}")
+	public ResponseEntity<List<Games>> getPlatforms(@PathVariable Long id) {
+		return new ResponseEntity<List<Games>>(this.service.platformById(id), HttpStatus.OK);
+	}
 
 	
 }

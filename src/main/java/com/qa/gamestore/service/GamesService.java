@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.repo.GamesRepo;
 
@@ -61,4 +62,9 @@ public class GamesService implements ServiceInterface<Games> {
 	}
 	
 	
+	//custom queries:
+
+	public List<Games> platformById(Long id) {
+		return this.repo.getGamesWithPlatformId(id);
+	}
 }
