@@ -25,6 +25,7 @@ import lombok.NonNull;
 @AllArgsConstructor
 @Data
 public class Games {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
