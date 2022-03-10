@@ -24,12 +24,12 @@ public class OrderGames {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@JsonBackReference(value = "ordersToOrderGames")
+	@JsonBackReference
 	@ManyToOne(targetEntity = Orders.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_orders_id")
 	private Orders orders;
 	
-	@JsonBackReference(value = "gamesToOrderGames")
+	@JsonBackReference
 	@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_games_id")
 	private Games games;

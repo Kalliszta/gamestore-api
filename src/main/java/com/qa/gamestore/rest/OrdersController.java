@@ -26,7 +26,7 @@ public class OrdersController implements ControllerInterface<Orders> {
 	//create - POST request
 	@PostMapping("/create")
 	@Override
-	public ResponseEntity<Orders> create(@RequestBody Orders info, HttpServletResponse response) {
+	public ResponseEntity<Orders> create(@RequestBody Orders info) {
 		return new ResponseEntity<Orders>(this.service.create(info), HttpStatus.CREATED);
 		
 	}

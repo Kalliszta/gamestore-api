@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface ControllerInterface<T> {
 	
-	ResponseEntity<T> create(T info, HttpServletResponse response);
+	ResponseEntity<T> create(T info);
 	
 	ResponseEntity<List<T>> get();
 	

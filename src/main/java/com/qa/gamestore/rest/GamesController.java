@@ -27,7 +27,7 @@ public class GamesController implements ControllerInterface<Games> {
 	//create - POST request
 	@PostMapping("/create")
 	@Override
-	public ResponseEntity<Games> create(@RequestBody Games info, HttpServletResponse response) {
+	public ResponseEntity<Games> create(@RequestBody Games info) {
 		return new ResponseEntity<Games>(this.service.create(info), HttpStatus.CREATED);
 		
 	}

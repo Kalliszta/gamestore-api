@@ -18,21 +18,17 @@ public interface GamesRepo extends JpaRepository<Games, Long> {
 	// ##### Games #####
 	
 	// ### Additional queries for Games ###
-	
-//	@Query(value = "INSERT INTO games(name,description,age_rating,cost,online_game) VALUES(:in1,:in2,:in3,:in4,:in5)", nativeQuery = true)
-//	public Games insertInto(@Param("in1") String in1, @Param("in2") String in2, @Param("in3") int in3, @Param("in4") double in4, @Param("in5") boolean in5);
-	
 	@Query(value = "SELECT * FROM games WHERE name = :inputName", nativeQuery = true) //nativeQuery = true, enables the use of SQL commands as the value instead of using JPQL
 	public List<Games> getGamesByName(@Param("inputName") String inputName);
 	
 	@Query(value = "SELECT * FROM games WHERE age_rating <= :inputAge", nativeQuery = true)
-	public List<Games> getGamesByAge(@Param("inputAge") int inputAge);
+	public List<Games> getGamesByAge(@Param("inputAge") Integer inputAge);
 	
 	@Query(value = "SELECT * FROM games WHERE cost <= :inputCost", nativeQuery = true)
-	public List<Games> getGamesByCost(@Param("inputCost") double inputCost);
+	public List<Games> getGamesByCost(@Param("inputCost") Double inputCost);
 	
 	@Query(value = "SELECT * FROM games WHERE online_game = :inputOnline", nativeQuery = true)
-	public List<Games> getGamesByOrderGame(@Param("inputOnline") boolean inputOnline);
+	public List<Games> getGamesByOrderGame(@Param("inputOnline") Boolean inputOnline);
 	
 	
 	// ### Queries for Platforms ###

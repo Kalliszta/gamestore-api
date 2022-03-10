@@ -27,7 +27,7 @@ public class AccountsController implements ControllerInterface<Accounts> {
 	//create - POST request
 	@PostMapping("/create")
 	@Override
-	public ResponseEntity<Accounts> create(@RequestBody Accounts info, HttpServletResponse response) {
+	public ResponseEntity<Accounts> create(@RequestBody Accounts info) {
 		return new ResponseEntity<Accounts>(this.service.create(info), HttpStatus.CREATED);
 		
 	}

@@ -43,15 +43,23 @@ public class Games {
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GamePlatforms> gamePlatforms;
 
-//	//relationship with gameGenres
+	//relationship with gameGenres
 	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GameGenres> gameGenres;
 	
-//	//relationship with orderGames
+	//relationship with orderGames
 	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<OrderGames> orderGames;
+	
+	public Games(String name, String description, Integer ageRating, double cost, boolean onlineGame) {
+		this.name = name;
+		this.description = description;
+		this.ageRating = ageRating;
+		this.cost = cost;
+		this.onlineGame = onlineGame;
+	}
 	
 	
 	public Games(Long id, String name, String description, Integer ageRating, double cost, boolean onlineGame) {
@@ -62,17 +70,6 @@ public class Games {
 		this.cost = cost;
 		this.onlineGame = onlineGame;
 	}
-
-
-	public Games(String name, String description, Integer ageRating, double cost, boolean onlineGame) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.ageRating = ageRating;
-		this.cost = cost;
-		this.onlineGame = onlineGame;
-	}
-	
 	
 	public void updateFields(Games newGame) {
 		this.name = newGame.getName();
