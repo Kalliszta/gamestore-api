@@ -21,11 +21,11 @@ public interface GamesRepo extends JpaRepository<Games, Long> {
 	@Query(value = "SELECT * FROM games WHERE name = :inputName", nativeQuery = true) //nativeQuery = true, enables the use of SQL commands as the value instead of using JPQL
 	public List<Games> getGamesByName(@Param("inputName") String inputName);
 	
+	@Query(value = "SELECT * FROM games WHERE age_rating <= :inputAge", nativeQuery = true)
+	public List<Games> getGamesByAge(@Param("inputAge") int inputAge);
+	
 	@Query(value = "SELECT * FROM games WHERE online_game = :inputOnline", nativeQuery = true)
 	public List<Games> getGamesByOrderGame(@Param("inputOnline") boolean inputOnline);
-	
-	@Query(value = "SELECT * FROM games WHERE age <= :inputAge", nativeQuery = true)
-	public List<Games> getGamesByAge(@Param("inputAge") int inputAge);
 	
 	// ### Queries for Platforms ###
 	@Query(value = "SELECT * FROM games LEFT OUTER JOIN game_platforms ON games.id=game_platforms.fk_games_id LEFT OUTER JOIN platforms ON platforms.id=game_platforms.fk_platforms_id WHERE platforms.id = :inputId", nativeQuery = true)
