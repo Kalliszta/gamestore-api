@@ -125,7 +125,6 @@ import com.qa.gamestore.domain.Games;
 	// ### Tests for additional endpoints ###
 	@Test
 	void testReadByName() throws Exception {
-		//creation of object in Java as although it exists in test database in Java it doesn't exist as an object
 		List<Games> expectedGames = Arrays.asList(
 				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
 				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
@@ -141,14 +140,15 @@ import com.qa.gamestore.domain.Games;
 	}
 	@Test
 	void testReadByAge() throws Exception {
-		//creation of object in Java as although it exists in test database in Java it doesn't exist as an object
 		List<Games> expectedGames = Arrays.asList(
-				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
-				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(3L, "Horizon Forbidden West", "An RPG that takes place in the future", 16, 79.99, false),
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
 				);
-		String searchByName = "Elder Scrolls";
+		Integer searchByAge = 16;
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
-				.request(HttpMethod.GET, URL + "/read/name/" + searchByName);
+				.request(HttpMethod.GET, URL + "/read/age/" + searchByAge);
 		
 		ResultMatcher status = MockMvcResultMatchers.status().isOk();
 		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
