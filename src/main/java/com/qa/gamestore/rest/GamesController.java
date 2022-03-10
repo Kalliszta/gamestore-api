@@ -59,12 +59,17 @@ public class GamesController implements ControllerInterface<Games> {
 		return new ResponseEntity<Boolean>(this.service.delete(id),HttpStatus.OK);
 	}
 	
-	//	### custom query mappings go below ###
+	// ### custom query mappings go below ###
 	
 	//Returns all games with the specified name
 	@GetMapping("/read/name/{name}")
 	public ResponseEntity<List<Games>> getByName(@PathVariable String name) {
 		return new ResponseEntity<List<Games>>(this.service.readByName(name), HttpStatus.OK);
+	}
+	
+	@GetMapping("/read/online/{isOnline}")
+	public ResponseEntity<List<Games>> getByOnlineGame(@PathVariable boolean isOnline) {
+		return new ResponseEntity<List<Games>>(this.service.readByOrderGame(isOnline), HttpStatus.OK);
 	}
 	
 	//Returns all games that are available on the platform with the inputed id
