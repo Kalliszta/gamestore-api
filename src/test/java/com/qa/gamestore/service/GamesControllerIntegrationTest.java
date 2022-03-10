@@ -1,5 +1,8 @@
 package com.qa.gamestore.service;
 
+import java.util.List;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +42,8 @@ import com.qa.gamestore.domain.Games;
 	@Test
 	void testCreate() throws Exception {
 		Games testGame = new Games(0L, "TestGame", "A game that doesn't exist", 7, 5.87, false);
-		Games expectedGame = new Games(5L, "TestGame", "A game that doesn't exist", 7, 5.87, false);
-		
-		
+		Games expectedGame = new Games(6L, "TestGame", "A game that doesn't exist", 7, 5.87, false);
+			
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 				.request(HttpMethod.POST, URL + "/create")
 				.contentType(MediaType.APPLICATION_JSON)
@@ -54,5 +56,26 @@ import com.qa.gamestore.domain.Games;
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	
 	}
+	
+	@Test
+	void testReadAll() throws Exception {
+		//creation of objects in Java as although they exist in test database in Java they aren't existing objects
+		List<Games> expectedGames = Arrays.asList(
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(3L, "Horizon Forbidden West", "An RPG that takes place in the future", 16, 79.99, false),
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				);
+		
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, URL + "/read/all");
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
 	
 }
