@@ -71,19 +71,19 @@ public class GamesController implements ControllerInterface<Games> {
 	
 	//Returns all games equal to or less than the specified age
 	@GetMapping("/read/age/{age}")
-	public ResponseEntity<List<Games>> getByAge(@PathVariable int age) {
+	public ResponseEntity<List<Games>> getByAge(@PathVariable Integer age) {
 		return new ResponseEntity<List<Games>>(this.service.readByAge(age), HttpStatus.OK);
 	}
 	
 	//Returns all games equal to or less than the specified cost
 	@GetMapping("/read/cost/{cost}")
-	public ResponseEntity<List<Games>> getByAge(@PathVariable double cost) {
+	public ResponseEntity<List<Games>> getByAge(@PathVariable Double cost) {
 		return new ResponseEntity<List<Games>>(this.service.readByCost(cost), HttpStatus.OK);
 	}
 	
 	//Returns all games that match the given input for whether the game is online or not
 	@GetMapping("/read/online/{isOnline}")
-	public ResponseEntity<List<Games>> getByOnlineGame(@PathVariable boolean isOnline) {
+	public ResponseEntity<List<Games>> getByOnlineGame(@PathVariable Boolean isOnline) {
 		return new ResponseEntity<List<Games>>(this.service.readByOrderGame(isOnline), HttpStatus.OK);
 	}
 	
