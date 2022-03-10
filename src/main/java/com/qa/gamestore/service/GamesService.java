@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.repo.GamesRepo;
 
@@ -26,6 +25,7 @@ public class GamesService implements ServiceInterface<Games> {
 		//TO-DO exception handling
 		return this.repo.save(game);
 	}
+	
 	@Override
 	public List<Games> readAll() {
 		return this.repo.findAll();

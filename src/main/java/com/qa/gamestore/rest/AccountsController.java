@@ -2,6 +2,8 @@ package com.qa.gamestore.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class AccountsController implements ControllerInterface<Accounts> {
 	//create - POST request
 	@PostMapping("/create")
 	@Override
-	public ResponseEntity<Accounts> create(@RequestBody Accounts info) {
+	public ResponseEntity<Accounts> create(@RequestBody Accounts info, HttpServletResponse response) {
 		return new ResponseEntity<Accounts>(this.service.create(info), HttpStatus.CREATED);
 		
 	}

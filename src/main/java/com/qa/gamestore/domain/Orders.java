@@ -31,13 +31,13 @@ public class Orders {
 	private Date orderDate;
 	
 	//relationship with accounts
-	@JsonBackReference
+	@JsonBackReference(value = "accountToOrders")
 	@ManyToOne(targetEntity = Accounts.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_accounts_id")
 	private Accounts accounts;
 	
 	//relationship with OrderGames
-	@JsonManagedReference
+	@JsonManagedReference(value = "ordersToOrderGenres")
 	@OneToMany(mappedBy = "orders", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<OrderGames> orderGames;

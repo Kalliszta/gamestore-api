@@ -2,11 +2,13 @@ package com.qa.gamestore.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.ResponseEntity;
 
 public interface ControllerInterface<T> {
 	
-	ResponseEntity<T> create(T info);
+	ResponseEntity<T> create(T info, HttpServletResponse response);
 	
 	ResponseEntity<List<T>> get();
 	

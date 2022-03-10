@@ -55,7 +55,7 @@ public class Accounts {
 	private boolean admin = false;
 	
 	//relationship with orders
-	@JsonManagedReference
+	@JsonManagedReference(value = "accountToOrders")
 	@OneToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<Orders> orders;

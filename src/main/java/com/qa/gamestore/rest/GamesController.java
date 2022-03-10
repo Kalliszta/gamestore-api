@@ -2,6 +2,8 @@ package com.qa.gamestore.rest;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +27,7 @@ public class GamesController implements ControllerInterface<Games> {
 	//create - POST request
 	@PostMapping("/create")
 	@Override
-	public ResponseEntity<Games> create(@RequestBody Games info) {
+	public ResponseEntity<Games> create(@RequestBody Games info, HttpServletResponse response) {
 		return new ResponseEntity<Games>(this.service.create(info), HttpStatus.CREATED);
 		
 	}
