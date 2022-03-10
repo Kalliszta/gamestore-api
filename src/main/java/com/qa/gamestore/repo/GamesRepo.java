@@ -22,13 +22,13 @@ public interface GamesRepo extends JpaRepository<Games, Long> {
 	public List<Games> getGamesByName(@Param("inputName") String inputName);
 	
 	@Query(value = "SELECT * FROM games WHERE age_rating <= :inputAge", nativeQuery = true)
-	public List<Games> getGamesByAge(@Param("inputAge") int inputAge);
+	public List<Games> getGamesByAge(@Param("inputAge") Integer inputAge);
 	
 	@Query(value = "SELECT * FROM games WHERE cost <= :inputCost", nativeQuery = true)
-	public List<Games> getGamesByCost(@Param("inputCost") double inputCost);
+	public List<Games> getGamesByCost(@Param("inputCost") Double inputCost);
 	
 	@Query(value = "SELECT * FROM games WHERE online_game = :inputOnline", nativeQuery = true)
-	public List<Games> getGamesByOrderGame(@Param("inputOnline") boolean inputOnline);
+	public List<Games> getGamesByOrderGame(@Param("inputOnline") Boolean inputOnline);
 	
 	
 	// ### Queries for Platforms ###

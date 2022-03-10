@@ -39,8 +39,8 @@ import lombok.NonNull;
 		@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 		private List<GameGenres> gameGenres;
 		
-		public void updateFields(Platforms newInfo) {
-			this.genre = newInfo.getName();
+		public void updateFields(Genres newInfo) {
+			this.genre = newInfo.getGenre();
 		}
 		
 }
