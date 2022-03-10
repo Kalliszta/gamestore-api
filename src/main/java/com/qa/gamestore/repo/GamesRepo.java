@@ -24,6 +24,9 @@ public interface GamesRepo extends JpaRepository<Games, Long> {
 	@Query(value = "SELECT * FROM games WHERE age_rating <= :inputAge", nativeQuery = true)
 	public List<Games> getGamesByAge(@Param("inputAge") int inputAge);
 	
+	@Query(value = "SELECT * FROM games WHERE cost <= :inputCost", nativeQuery = true)
+	public List<Games> getGamesByCost(@Param("inputCost") double inputCost);
+	
 	@Query(value = "SELECT * FROM games WHERE online_game = :inputOnline", nativeQuery = true)
 	public List<Games> getGamesByOrderGame(@Param("inputOnline") boolean inputOnline);
 	
