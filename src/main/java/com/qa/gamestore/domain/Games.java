@@ -53,7 +53,7 @@ public class Games {
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<OrderGames> orderGames;
 	
-	public Games(String name, String description, Integer ageRating, double cost, boolean onlineGame) {
+	public Games(String name, String description, Integer ageRating, Double cost, Boolean onlineGame) {
 		this.name = name;
 		this.description = description;
 		this.ageRating = ageRating;
@@ -62,7 +62,7 @@ public class Games {
 	}
 	
 	
-	public Games(Long id, String name, String description, Integer ageRating, double cost, boolean onlineGame) {
+	public Games(Long id, String name, String description, Integer ageRating, Double cost, Boolean onlineGame) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
