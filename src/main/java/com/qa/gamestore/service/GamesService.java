@@ -64,11 +64,15 @@ public class GamesService implements ServiceInterface<Games> {
 	
 	//### custom query methods go below ###
 	
+	public List<Games> readByName(String name) {
+		return this.repo.getGamesByName(name);
+	}
+	
 	public List<Games> platformById(Long id) {
-		return this.repo.getGamesWithPlatformId(id);
+		return this.repo.getGamesByPlatformId(id);
 	}
 	
 	public List<Games> genreById(Long id) {
-		return this.repo.getGamesWithGenreId(id);
+		return this.repo.getGamesByGenreId(id);
 	}
 }
