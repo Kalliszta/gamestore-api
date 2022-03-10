@@ -91,5 +91,20 @@ import com.qa.gamestore.domain.Games;
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	}
 	
+	@Test
+	void testUpdate() throws Exception {
+		Games expectedGame = new Games(1L, "Elder Scrolls Online", "An online RPG", 19, 59.99, false); //values are each changed to see if all change
+			
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.PUT, URL + "/update/" + id)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonifier.writeValueAsString(expectedGame))
+				.accept(MediaType.APPLICATION_JSON);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isAccepted();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGame));
 	
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	
+	}
 }
