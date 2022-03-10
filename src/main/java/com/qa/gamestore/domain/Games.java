@@ -9,15 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -34,10 +30,10 @@ public class Games {
 	private String name;
 	private String description;
 	@NonNull //TO-DO fix to make NonNull
-	private int ageRating;
+	private Integer ageRating;
 	@NonNull //TO-DO fix to make NonNull
-	private double cost; //TO-DO make sure to see if in money format
-	private boolean onlineGame = false;
+	private Double cost; //TO-DO make sure to see if in money format
+	private Boolean onlineGame = false;
 	//private double totalRating;
 
 	
@@ -48,20 +44,17 @@ public class Games {
 	private List<GamePlatforms> gamePlatforms;
 
 //	//relationship with gameGenres
-//	@JsonManagedReference(value = "gamesToGameGenres")
 	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<GameGenres> gameGenres;
 	
 //	//relationship with orderGames
-//	@Transient
-//	@JsonManagedReference(value = "gamesToOrderGames")
 	@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<OrderGames> orderGames;
 	
 	
-	public Games(Long id, String name, String description, int ageRating, double cost, boolean onlineGame) {
+	public Games(Long id, String name, String description, Integer ageRating, double cost, boolean onlineGame) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -71,7 +64,7 @@ public class Games {
 	}
 
 
-	public Games(String name, String description, int ageRating, double cost, boolean onlineGame) {
+	public Games(String name, String description, Integer ageRating, double cost, boolean onlineGame) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -119,37 +112,37 @@ public class Games {
 
 
 
-	public int getAgeRating() {
+	public Integer getAgeRating() {
 		return ageRating;
 	}
 
 
 
-	public void setAgeRating(int ageRating) {
+	public void setAgeRating(Integer ageRating) {
 		this.ageRating = ageRating;
 	}
 
 
 
-	public double getCost() {
+	public Double getCost() {
 		return cost;
 	}
 
 
 
-	public void setCost(double cost) {
+	public void setCost(Double cost) {
 		this.cost = cost;
 	}
 
 
 
-	public boolean isOnlineGame() {
+	public Boolean isOnlineGame() {
 		return onlineGame;
 	}
 
 
 
-	public void setOnlineGame(boolean onlineGame) {
+	public void setOnlineGame(Boolean onlineGame) {
 		this.onlineGame = onlineGame;
 	}
 
@@ -157,13 +150,13 @@ public class Games {
 
 	@Override
 	public String toString() {
-		return "Games [id=" + id + ", name=" + name + ", description=" + description + ", ageRating=" + ageRating
-				+ ", cost=" + cost + ", onlineGame=" + onlineGame + "]";
+		return "Games [id=" + id + ", name=" + name + ", description=" + description + ", ageRating=" + ageRating + ", cost=" + cost + ", onlineGame=" + onlineGame + "]";
 	}
+
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ageRating, cost, description, name, onlineGame);
+		return Objects.hash(ageRating, cost, description, id, name, onlineGame);
 	}
 
 
@@ -176,7 +169,12 @@ public class Games {
 		if (getClass() != obj.getClass())
 			return false;
 		Games other = (Games) obj;
-		return ageRating == other.ageRating && Double.doubleToLongBits(cost) == Double.doubleToLongBits(other.cost) && Objects.equals(description, other.description) && Objects.equals(name, other.name) && onlineGame == other.onlineGame;
+		return Objects.equals(ageRating, other.ageRating)
+				&& Objects.equals(cost, other.cost)
+				&& Objects.equals(description, other.description)
+				&& Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name)
+				&& Objects.equals(onlineGame, other.onlineGame);
 	}
 
 

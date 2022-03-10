@@ -2,6 +2,7 @@ package com.qa.gamestore.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.*;
 
@@ -16,9 +17,7 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
-@Table(name = "orders")
 @NoArgsConstructor
-@Data
 public class Orders {
 	
 	@Id
@@ -26,8 +25,6 @@ public class Orders {
 	@Column(name = "id")
 	private Long id;
 	
-	//@NonNull
-	//private Long fkAccountId;
 	private Date orderDate;
 	
 	//relationship with accounts
@@ -42,10 +39,65 @@ public class Orders {
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<OrderGames> orderGames;
 	
-	//will need to assign account the value of the person currently logged in
+	//TO-DO will need to assign account the value of the person currently logged in
 
+	
+	
 	public void updateFields(Orders newAccount) {
 		//this.fkAccountId = newAccount.getFkAccountId();
-		this.orderDate = newAccount.getOrderDate();;
+		this.orderDate = newAccount.getOrderDate();
 	}
+	
+	public Orders(Date orderDate, Accounts accounts) {
+		this.orderDate = orderDate;
+		this.accounts = accounts;
+	}
+
+	public Orders(Long id, Date orderDate, Accounts accounts) {
+		this.id = id;
+		this.orderDate = orderDate;
+		this.accounts = accounts;
+	}
+
+	public Date getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Date orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Accounts getAccounts() {
+		return accounts;
+	}
+
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", orderDate=" + orderDate + ", accounts=" + accounts + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(accounts, orderDate);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orders other = (Orders) obj;
+		return Objects.equals(accounts, other.accounts) && Objects.equals(orderDate, other.orderDate);
+	}
+	
+	
+	
+	
 }
