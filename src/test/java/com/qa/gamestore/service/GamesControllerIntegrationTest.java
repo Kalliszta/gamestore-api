@@ -77,5 +77,19 @@ import com.qa.gamestore.domain.Games;
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	}
 	
+	@Test
+	void testReadById() throws Exception {
+		//creation of object in Java as although it exists in test database in Java it doesn't exist as an object
+		Games expectedGame = new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true);
+		
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, URL + "/read/" + id);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGame));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
 	
 }
