@@ -39,10 +39,11 @@ import com.qa.gamestore.domain.Games;
 	private final String URL = "http://localhost:8080/gamestore/games";
 	private Long id = 1L;
 	
+	// ### Tests for basic CRUD endpoints ###
 	@Test
 	void testCreate() throws Exception {
 		Games testGame = new Games(0L, "TestGame", "A game that doesn't exist", 7, 5.87, false);
-		Games expectedGame = new Games(6L, "TestGame", "A game that doesn't exist", 7, 5.87, false);
+		Games expectedGame = new Games(7L, "TestGame", "A game that doesn't exist", 7, 5.87, false);
 			
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 				.request(HttpMethod.POST, URL + "/create")
@@ -65,7 +66,8 @@ import com.qa.gamestore.domain.Games;
 				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
 				new Games(3L, "Horizon Forbidden West", "An RPG that takes place in the future", 16, 79.99, false),
 				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
-				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true),
+				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
 				);
 		
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
@@ -119,4 +121,23 @@ import com.qa.gamestore.domain.Games;
 		
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	}
+	
+	// ### Tests for additional endpoints ###
+	@Test
+	void testReadBName() throws Exception {
+		//creation of object in Java as although it exists in test database in Java it doesn't exist as an object
+		List<Games> expectedGames = Arrays.asList(
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		String searchByName = "Elder Scrolls";
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, URL + "/read/name/" + searchByName);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
 }
