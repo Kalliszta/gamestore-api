@@ -72,6 +72,10 @@ public class GamesService implements ServiceInterface<Games> {
 		return this.repo.getGamesByAge(age);
 	}
 	
+	public List<Games> readByCost(double cost) {
+		return this.repo.getGamesByCost(cost);
+	}
+	
 	public List<Games> readByOrderGame(boolean online) {
 		return this.repo.getGamesByOrderGame(online);
 	}
