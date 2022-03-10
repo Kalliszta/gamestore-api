@@ -61,7 +61,6 @@ public class Games {
 		this.onlineGame = onlineGame;
 	}
 	
-	
 	public Games(Long id, String name, String description, Integer ageRating, Double cost, Boolean onlineGame) {
 		this.id = id;
 		this.name = name;
