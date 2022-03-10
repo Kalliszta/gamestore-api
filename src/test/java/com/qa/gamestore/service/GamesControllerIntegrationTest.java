@@ -107,4 +107,16 @@ import com.qa.gamestore.domain.Games;
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	
 	}
+	
+	@Test
+	void testDelete() throws Exception {
+		
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.DELETE, URL + "/remove/" + id);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().string("true"); //expect boolean true but can check using "true" as there is no ResultMatchers for boolean
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
 }
