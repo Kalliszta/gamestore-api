@@ -2,6 +2,8 @@ package com.qa.gamestore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -26,7 +28,7 @@ public class GamesServiceTest {
 	private GamesRepo repo;
 	
 	@BeforeEach
-	void setUpForEach() {
+	void setUpForEach() { //used for values that are re-used
 		newGame = new Games("LittleBigPlanet", "Best platformer ever", 7, 29.99, true);
 		savedGame = new Games(1L, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true);
 	}
@@ -44,6 +46,30 @@ public class GamesServiceTest {
 		
 		//verify
 		Mockito.verify(this.repo, Mockito.times(1)).save(newGame);
+	}
+	
+	@Test
+	void testReadAll() {
+		//given
+		//some things set up using setUpForEach
+	
+		List<Games> expectedGames = Arrays.asList(
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(3L, "Horizon Forbidden West", "An RPG that takes place in the future", 16, 79.99, false),
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true),
+				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		
+		//when
+		Mockito.when(this.repo.findAll()).thenReturn(expectedGames);
+		
+		//then
+		assertThat(this.service.readAll()).isEqualTo(expectedGames);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findAll();
 	}
 	
 	@Test
