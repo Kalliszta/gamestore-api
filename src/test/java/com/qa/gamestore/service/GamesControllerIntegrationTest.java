@@ -37,7 +37,7 @@ import com.qa.gamestore.domain.Games;
 	private ObjectMapper jsonifier; //maps java object to json
 	
 	private final String URL = "http://localhost:8080/gamestore/games";
-	private Long id = 1L;
+	private Long id = 1L; //up here as referenced on multiple occasions
 	
 	// ### Tests for basic CRUD endpoints ###
 	@Test
@@ -187,6 +187,25 @@ import com.qa.gamestore.domain.Games;
 		Boolean searchIsOnlineGame = true;
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 				.request(HttpMethod.GET, URL + "/read/online/" + searchIsOnlineGame);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
+	@Test
+	void testReadByPlatformId() throws Exception {
+		List<Games> expectedGames = Arrays.asList(
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		
+		Integer platformId = 5;
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, URL + "/read/platform/" + platformId);
 		
 		ResultMatcher status = MockMvcResultMatchers.status().isOk();
 		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
