@@ -20,8 +20,8 @@ import com.qa.gamestore.service.AccountsService;
 @SpringBootTest
 public class AccountsControllerTest {
 	private Long id;
-	private Accounts newAccounts;
-	private Accounts savedAccounts;
+	private Accounts newAccount;
+	private Accounts savedAccount;
 	
 	@Autowired
 	private AccountsController controller;
@@ -32,8 +32,8 @@ public class AccountsControllerTest {
 	
 	@BeforeEach
 	void setUpForEach() {
-		newAccounts = new Accounts("TestUser", "pass123", "Sally", "Smith", 23, "sallys@email.com", "07444271155", false);
-		savedAccounts = new Accounts(1L,"TestUser", "pass123", "Sally", "Smith", 23, "sallys@email.com", "07444271155", false);
+		newAccount = new Accounts("TestUser", "pass123", "Sally", "Smith", 23, "sallys@email.com", "07444271155", false);
+		savedAccount = new Accounts(1L, "TestUser", "pass123", "Sally", "Smith", 23, "sallys@email.com", "07444271155", false);
 	}
 	
 	@Test
@@ -42,13 +42,13 @@ public class AccountsControllerTest {
 		//set up using setUpForEach
 		
 		//when
-		Mockito.when(this.service.create(newAccounts)).thenReturn(savedAccounts);
-		ResponseEntity<Accounts> response = new ResponseEntity<Accounts>(savedAccounts, HttpStatus.CREATED);
+		Mockito.when(this.service.create(newAccount)).thenReturn(savedAccount);
+		ResponseEntity<Accounts> response = new ResponseEntity<Accounts>(savedAccount, HttpStatus.CREATED);
 		//then
-		assertThat(response).isEqualTo(this.controller.create(newAccounts));
+		assertThat(response).isEqualTo(this.controller.create(newAccount));
 		
 		//verify
-		Mockito.verify(this.service, Mockito.times(1)).create(newAccounts);
+		Mockito.verify(this.service, Mockito.times(1)).create(newAccount);
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class AccountsControllerTest {
 		//given
 		//set up using setUpForEach
 		List<Accounts> expectedAccounts = Arrays.asList(
-				savedAccounts,
+				savedAccount,
 				new Accounts(2L, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true),
 				new Accounts(3L, "LilyHere", "pass1", "Lily", "Smith", 25, "lily@email.com", "05354664637", false),
 				new Accounts(4L, "User3", "pAsSwOrD", "Bob", "Roberts", 12, "roberts@email.com", "07853364637", false),
@@ -79,8 +79,8 @@ public class AccountsControllerTest {
 		id = 1L;
 		
 		//when
-		Mockito.when(this.service.readById(id)).thenReturn(savedAccounts);
-		ResponseEntity<Accounts> response = new ResponseEntity<Accounts>(savedAccounts, HttpStatus.OK);
+		Mockito.when(this.service.readById(id)).thenReturn(savedAccount);
+		ResponseEntity<Accounts> response = new ResponseEntity<Accounts>(savedAccount, HttpStatus.OK);
 		//then
 		assertThat(response).isEqualTo(this.controller.get(id));
 		
