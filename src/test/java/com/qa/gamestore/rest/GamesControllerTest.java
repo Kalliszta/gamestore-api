@@ -91,4 +91,22 @@ public class GamesControllerTest {
 		Mockito.verify(this.service, Mockito.times(1)).readById(id);
 	}
 	
+	@Test
+	void testUpdate() {
+		//given
+		//set up using setUpForEach
+		id = 1L;
+		Games updateTo = new Games(id, "LittleBigPlanet2", "The second LBP game", 3, 35.67, false); //each information is changed to see if all are changed
+
+		//when
+		
+		Mockito.when(this.service.update(id, updateTo)).thenReturn(updateTo);
+		ResponseEntity<Games> response = new ResponseEntity<Games>(updateTo, HttpStatus.ACCEPTED);
+		
+		//then
+		assertThat(response).isEqualTo(this.controller.update(id, updateTo));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).update(id, updateTo);
+	}
 }
