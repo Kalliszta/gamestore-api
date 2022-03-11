@@ -190,4 +190,72 @@ public class GamesControllerTest {
 		//verify
 		Mockito.verify(this.service, Mockito.times(1)).readByCost(cost);
 	}
+	
+	@Test
+	void testReadByOrderGame() {
+		//given
+		//set up using setUpForEach
+		Boolean online = true;
+		
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(2L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(5L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(6L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				);
+		
+		//when
+		Mockito.when(this.service.readByOrderGame(online)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.getByOnlineGame(online));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).readByOrderGame(online);
+	}
+	
+	@Test
+	void testReadByPlatformId() {
+		//given
+		//set up using setUpForEach
+		id = 5L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		
+		//when
+		Mockito.when(this.service.platformById(id)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.getByPlatform(id));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).platformById(id);
+	}
+	
+	@Test
+	void testReadByGenreId() {
+		//given
+		//set up using setUpForEach
+		id = 6L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				);
+		
+		//when
+		Mockito.when(this.service.genreById(id)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.getByGenre(id));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).genreById(id);
+	}
+
 }
