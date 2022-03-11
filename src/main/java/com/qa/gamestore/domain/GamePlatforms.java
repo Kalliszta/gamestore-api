@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 	@Entity
 	@NoArgsConstructor
 	@AllArgsConstructor
-	@Data
 	public class GamePlatforms {
 		
 		@Id
@@ -37,4 +36,10 @@ import lombok.NoArgsConstructor;
 		@JoinColumn(name="fk_platforms_id")
 		private Platforms platforms;
 
+		@Override
+		public String toString() {
+			return "GamePlatforms [id=" + id + ", games=" + games + ", platforms=" + platforms + "]";
+		}
+
+		
 }

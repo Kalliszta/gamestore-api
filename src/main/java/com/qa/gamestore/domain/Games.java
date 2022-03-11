@@ -53,7 +53,7 @@ public class Games {
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<OrderGames> orderGames;
 	
-	public Games(String name, String description, Integer ageRating, double cost, boolean onlineGame) {
+	public Games(String name, String description, Integer ageRating, Double cost, Boolean onlineGame) {
 		this.name = name;
 		this.description = description;
 		this.ageRating = ageRating;
@@ -61,8 +61,7 @@ public class Games {
 		this.onlineGame = onlineGame;
 	}
 	
-	
-	public Games(Long id, String name, String description, Integer ageRating, double cost, boolean onlineGame) {
+	public Games(Long id, String name, String description, Integer ageRating, Double cost, Boolean onlineGame) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -150,12 +149,10 @@ public class Games {
 		return "Games [id=" + id + ", name=" + name + ", description=" + description + ", ageRating=" + ageRating + ", cost=" + cost + ", onlineGame=" + onlineGame + "]";
 	}
 
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(ageRating, cost, description, id, name, onlineGame);
+		return Objects.hash(ageRating, cost, description, name, onlineGame);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -166,13 +163,13 @@ public class Games {
 		if (getClass() != obj.getClass())
 			return false;
 		Games other = (Games) obj;
-		return Objects.equals(ageRating, other.ageRating)
+		return Objects.equals(ageRating, other.ageRating) 
 				&& Objects.equals(cost, other.cost)
 				&& Objects.equals(description, other.description)
-				&& Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name)
 				&& Objects.equals(onlineGame, other.onlineGame);
 	}
+
 
 
 //	public List<GamePlatforms> getGamePlatforms() {
