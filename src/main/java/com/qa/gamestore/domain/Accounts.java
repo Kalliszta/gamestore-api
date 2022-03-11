@@ -56,7 +56,7 @@ public class Accounts {
 	
 	public Accounts(String username, String password, String firstname, String surname, Integer age, String email, String phoneNumber, Boolean admin) {
 		this.username = username;
-		this.password = this.encrypt(password);
+		this.setPassword(password);
 		this.firstname = firstname;
 		this.surname = surname;
 		this.age = age;
@@ -68,7 +68,7 @@ public class Accounts {
 	public Accounts(Long id, String username, String password, String firstname, String surname, Integer age, String email, String phoneNumber, Boolean admin) {
 		this.id = id;
 		this.username = username;
-		this.password = this.encrypt(password);
+		this.setPassword(password);
 		this.firstname = firstname;
 		this.surname = surname;
 		this.age = age;
@@ -79,13 +79,13 @@ public class Accounts {
 	
 	public void updateFields(Accounts newAccount) {
 		this.username = newAccount.getUsername();
-		this.password = newAccount.getPassword();;
-		this.firstname = newAccount.getFirstname();;
-		this.surname = newAccount.getUsername();;
+		this.password = newAccount.getPassword(); //don't apply hashsalt here as then it would be applied twice
+		this.firstname = newAccount.getFirstname();
+		this.surname = newAccount.getSurname();
 		this.age = newAccount.getAge();
-		this.email = newAccount.getEmail();;
+		this.email = newAccount.getEmail();
 		this.phoneNumber = newAccount.getPhoneNumber();
-		this.admin = newAccount.isAdmin();;
+		this.admin = newAccount.isAdmin();
 	}
 	
 	public String encrypt(String password) {
@@ -107,7 +107,7 @@ public class Accounts {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = this.encrypt(password);
 	}
 
 	public String getFirstname() {
