@@ -47,11 +47,28 @@ public class GamesServiceTest {
 	}
 	
 	@Test
+	void testReadById() {
+		//given
+		//some things set up using setUpForEach
+		Long id = 1L;
+		Optional<Games> optGame = Optional.of(new Games(id, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
+		
+		//when
+		Mockito.when(this.repo.findById(id)).thenReturn(optGame);
+		
+		//then
+		assertThat(this.service.readById(id)).isEqualTo(savedGame);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
+	}
+	
+	@Test
 	void testUpdate() {
 		//given
 		//some things set up using setUpForEach
 		Long id = 1L;
-		Optional<Games> optGame = Optional.of(new Games(id, null, null, 0, 0.0, null));
+		Optional<Games> optGame = Optional.of(new Games(id, null, null, 0, 0.0, null)); //testing to see if all values can be changed
 		Games updatedGame = new Games(id, newGame.getName(), newGame.getDescription(), newGame.getAgeRating(), newGame.getCost(), newGame.isOnlineGame());
 		
 		//when
@@ -65,4 +82,5 @@ public class GamesServiceTest {
 		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).save(updatedGame);
 	}
+	
 }
