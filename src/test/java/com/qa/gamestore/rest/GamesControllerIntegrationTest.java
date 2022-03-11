@@ -1,4 +1,4 @@
-package com.qa.gamestore.service;
+package com.qa.gamestore.rest;
 
 import java.util.List;
 import java.util.Arrays;
