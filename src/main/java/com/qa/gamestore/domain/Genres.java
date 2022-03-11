@@ -23,7 +23,6 @@ import lombok.NonNull;
 
 	@Entity
 	@NoArgsConstructor
-	@AllArgsConstructor
 	public class Genres {
 		
 		@Id
@@ -32,6 +31,17 @@ import lombok.NonNull;
 		
 		@NonNull
 		private String genre;
+		
+		public Genres(@NonNull String genre) {
+			super();
+			this.genre = genre;
+		}
+
+		public Genres(Long id, @NonNull String genre) {
+			super();
+			this.id = id;
+			this.genre = genre;
+		}
 		
 		//relationship with gameGenres
 		@JsonManagedReference
@@ -43,16 +53,16 @@ import lombok.NonNull;
 			this.genre = newInfo.getGenre();
 		}
 
+		public Long getId() {
+			return id;
+		}
+
 		public String getGenre() {
 			return genre;
 		}
 
 		public void setGenre(String genre) {
 			this.genre = genre;
-		}
-
-		public Long getId() {
-			return id;
 		}
 
 		@Override

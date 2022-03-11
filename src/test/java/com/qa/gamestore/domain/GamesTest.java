@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 //import nl.jqno.equalsverifier.EqualsVerifier;
+//import nl.jqno.equalsverifier.Warning;
 
 public class GamesTest {
 	private Games existingGame;
@@ -142,13 +143,13 @@ public class GamesTest {
 	
 //	@Test
 //	public void testEquals() {
-//		Platforms platform = new Platforms(1L, "PS3", "PlayStation", null);
-//		Genres genre = new Genres(1L, "Platformer", null);
+//		Platforms platform = new Platforms(1L, "PS3", "PlayStation");
+//		Genres genre = new Genres(1L, "Platformer");
 //		Orders order = new Orders(1L, 1L);
 //		EqualsVerifier.simple().forClass(Games.class)
-//			.withPrefabValues(GamePlatforms.class, new GamePlatforms(1L,existingGame,platform), new GamePlatforms(1L,null,null))
-//			.withPrefabValues(GameGenres.class, new GameGenres(1L,existingGame,genre), new GameGenres(1L,null,null))
-//			.withPrefabValues(OrderGames.class, new OrderGames(1L,order,existingGame), new OrderGames(1L,null,null))
+//			.withPrefabValues(GamePlatforms.class, new GamePlatforms(1L,existingGame,platform), new GamePlatforms(1L,null,null)).suppress(Warning.NONFINAL_FIELDS)
+//			.withPrefabValues(GameGenres.class, new GameGenres(1L,existingGame,genre), new GameGenres(1L,null,null)).suppress(Warning.NONFINAL_FIELDS)
+//			.withPrefabValues(OrderGames.class, new OrderGames(1L,order,existingGame), new OrderGames(1L,null,null)).suppress(Warning.NONFINAL_FIELDS)
 //			.verify();
 //	}
 }
