@@ -109,4 +109,20 @@ public class GamesControllerTest {
 		//verify
 		Mockito.verify(this.service, Mockito.times(1)).update(id, updateTo);
 	}
+	
+	@Test
+	void testDelete() {
+		//given
+		id = 1L;
+		
+		//when
+		Mockito.when(this.service.delete(id)).thenReturn(true);
+		ResponseEntity<Boolean> response = new ResponseEntity<Boolean>(true, HttpStatus.OK);
+		
+		//then
+		assertThat(response).isEqualTo(this.controller.delete(id));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).delete(id);
+	}
 }
