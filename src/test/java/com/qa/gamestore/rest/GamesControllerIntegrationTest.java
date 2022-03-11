@@ -203,7 +203,7 @@ import com.qa.gamestore.domain.Games;
 				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
 				);
 		
-		Integer platformId = 5;
+		Long platformId = 5L;
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 				.request(HttpMethod.GET, URL + "/read/platform/" + platformId);
 		
@@ -220,7 +220,7 @@ import com.qa.gamestore.domain.Games;
 				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
 				);
 		
-		Integer genreId = 6;
+		Long genreId = 6L;
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 				.request(HttpMethod.GET, URL + "/read/genre/" + genreId);
 		

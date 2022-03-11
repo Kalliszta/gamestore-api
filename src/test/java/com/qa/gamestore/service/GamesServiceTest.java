@@ -97,7 +97,7 @@ public class GamesServiceTest {
 		//given
 		//some things set up using setUpForEach
 		Long id = 1L;
-		Optional<Games> optGame = Optional.of(new Games(id, null, null, 0, 0.0, null)); //testing to see if all values can be changed
+		Optional<Games> optGame = Optional.of(new Games(id, null, null, 0, 0.0, null));
 		Games updatedGame = new Games(id, newGame.getName(), newGame.getDescription(), newGame.getAgeRating(), newGame.getCost(), newGame.isOnlineGame());
 		
 		//when
@@ -229,6 +229,50 @@ public class GamesServiceTest {
 		
 		//verify
 		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOrderGame(online);
+	}
+	
+	@Test
+	void testReadByPlatformId() {
+		//given
+		//some things set up using setUpForEach
+		Long id = 5L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(6L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		
+		//when
+		Mockito.when(this.repo.getGamesByPlatformId(id)).thenReturn(expectedGames);
+		
+		//then
+		assertThat(this.service.platformById(id)).isEqualTo(expectedGames);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).getGamesByPlatformId(id);
+	}
+	
+	@Test
+	void testReadByGenreId() {
+		//given
+		//some things set up using setUpForEach
+		Long id = 6L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				);
+		
+		//when
+		Mockito.when(this.repo.getGamesByGenreId(id)).thenReturn(expectedGames);
+		
+		//then
+		assertThat(this.service.genreById(id)).isEqualTo(expectedGames);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).getGamesByGenreId(id);
 	}
 	
 }
