@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Accounts;
+import com.qa.gamestore.exceptions.IdNotFoundException;
 import com.qa.gamestore.repo.AccountsRepo;
 
 @Service
@@ -25,6 +26,7 @@ public class AccountsService implements ServiceInterface<Accounts> {
 		//TO-DO exception handling
 		return this.repo.save(user);
 	}
+	
 	@Override
 	public List<Accounts> readAll() {
 		return this.repo.findAll();
@@ -53,7 +55,7 @@ public class AccountsService implements ServiceInterface<Accounts> {
 	public boolean delete(Long id) {
 		try {
 			this.repo.deleteById(id);
-		} catch (Exception e) {
+		} catch (IdNotFoundException e) {
 			//TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}

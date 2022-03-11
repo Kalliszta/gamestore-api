@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Accounts;
 import com.qa.gamestore.domain.Orders;
+import com.qa.gamestore.exceptions.IdNotFoundException;
 import com.qa.gamestore.repo.AccountsRepo;
 import com.qa.gamestore.repo.OrdersRepo;
 
@@ -65,7 +66,7 @@ public class OrdersService implements ServiceInterface<Orders> {
 	public boolean delete(Long id) {
 		try {
 			this.repo.deleteById(id);
-		} catch (Exception e) {
+		} catch (IdNotFoundException e) {
 			//TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}

@@ -1,4 +1,4 @@
-package exceptions;
+package com.qa.gamestore.exceptions;
 
 import java.util.NoSuchElementException;
 

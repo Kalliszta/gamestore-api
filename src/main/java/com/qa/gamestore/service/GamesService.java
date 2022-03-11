@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Games;
+import com.qa.gamestore.exceptions.IdNotFoundException;
 import com.qa.gamestore.repo.GamesRepo;
-
-import exceptions.IdNotFoundException;
 
 @Service
 public class GamesService implements ServiceInterface<Games> {
