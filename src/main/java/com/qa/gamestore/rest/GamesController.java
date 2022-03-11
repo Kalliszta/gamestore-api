@@ -75,7 +75,7 @@ public class GamesController implements ControllerInterface<Games> {
 	
 	//Returns all games equal to or less than the specified cost
 	@GetMapping("/read/cost/{cost}")
-	public ResponseEntity<List<Games>> getByAge(@PathVariable Double cost) {
+	public ResponseEntity<List<Games>> getByCost(@PathVariable Double cost) {
 		return new ResponseEntity<List<Games>>(this.service.readByCost(cost), HttpStatus.OK);
 	}
 	

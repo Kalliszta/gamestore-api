@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -124,5 +123,71 @@ public class GamesControllerTest {
 		
 		//verify
 		Mockito.verify(this.service, Mockito.times(1)).delete(id);
+	}
+	
+	@Test
+	void testReadByName() {
+		//given
+		//set up using setUpForEach
+		String name = "Elder Scrolls";
+		
+		List<Games> expectedGames = Arrays.asList(
+				new Games(2L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(7L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		
+		//when
+		Mockito.when(this.service.readByName(name)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.getByName(name));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).readByName(name);
+	}
+	
+	@Test
+	void testReadByAge() {
+		//given
+		//set up using setUpForEach
+		Integer age = 7;
+		
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(5L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(6L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				);
+		//when
+		Mockito.when(this.service.readByAge(age)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.getByAge(age));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).readByAge(age);
+	}
+	
+	@Test
+	void testReadByCost() {
+		//given
+		//set up using setUpForEach
+		Double cost = 32.65;
+		
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(2L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(3L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false),
+				new Games(5L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(7L, "Elder Scrolls", "Skyrim", 18, 32.65, false)
+				);
+		
+		//when
+		Mockito.when(this.service.readByCost(cost)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.getByCost(cost));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).readByCost(cost);
 	}
 }
