@@ -20,6 +20,7 @@ import com.qa.gamestore.repo.GamesRepo;
 @SpringBootTest
 @ActiveProfiles("test")
 public class GamesServiceTest {
+	private Long id;
 	private Games newGame;
 	private Games savedGame;
 	
@@ -79,7 +80,7 @@ public class GamesServiceTest {
 	void testReadById() {
 		//given
 		//some things set up using setUpForEach
-		Long id = 1L;
+		id = 1L;
 		Optional<Games> optGame = Optional.of(new Games(id, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
 		
 		//when
@@ -96,7 +97,7 @@ public class GamesServiceTest {
 	void testUpdate() {
 		//given
 		//some things set up using setUpForEach
-		Long id = 1L;
+		id = 1L;
 		Optional<Games> optGame = Optional.of(new Games(id, null, null, 0, 0.0, null));
 		Games updatedGame = new Games(id, newGame.getName(), newGame.getDescription(), newGame.getAgeRating(), newGame.getCost(), newGame.isOnlineGame());
 		
@@ -116,7 +117,7 @@ public class GamesServiceTest {
 	void testDelete() {
 		//given
 		//some things set up using setUpForEach
-		Long id = 1L;
+		id = 1L;
 
 		//when
 		Mockito.when(this.repo.existsById(id)).thenReturn(false);
@@ -132,7 +133,7 @@ public class GamesServiceTest {
 	void testDeleteFail() {
 		//given
 		//some things set up using setUpForEach
-		Long id = 100L;
+		id = 100L;
 
 		//when
 		Mockito.when(this.repo.existsById(id)).thenReturn(true);
@@ -235,7 +236,7 @@ public class GamesServiceTest {
 	void testReadByPlatformId() {
 		//given
 		//some things set up using setUpForEach
-		Long id = 5L;
+		id = 5L;
 		List<Games> expectedGames = Arrays.asList(
 				savedGame,
 				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
@@ -258,7 +259,7 @@ public class GamesServiceTest {
 	void testReadByGenreId() {
 		//given
 		//some things set up using setUpForEach
-		Long id = 6L;
+		id = 6L;
 		List<Games> expectedGames = Arrays.asList(
 				savedGame,
 				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),

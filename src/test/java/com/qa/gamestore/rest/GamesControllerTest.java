@@ -2,6 +2,8 @@ package com.qa.gamestore.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +18,7 @@ import com.qa.gamestore.service.GamesService;
 
 @SpringBootTest
 public class GamesControllerTest {
+	private Long id;
 	private Games newGame;
 	private Games savedGame;
 	
@@ -25,7 +28,6 @@ public class GamesControllerTest {
 	@MockBean
 	private GamesService service;
 	
-
 	
 	@BeforeEach
 	void setUpForEach() {
@@ -46,6 +48,22 @@ public class GamesControllerTest {
 		
 		//verify
 		Mockito.verify(this.service, Mockito.times(1)).create(newGame);
+	}
+	
+	@Test
+	void testReadById() {
+		//given
+		//set up using setUpForEach
+		id = 1L;
+		
+		//when
+		Mockito.when(this.service.readById(id)).thenReturn(savedGame);
+		ResponseEntity<Games> response = new ResponseEntity<Games>(savedGame, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.get(id));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).readById(id);
 	}
 	
 }
