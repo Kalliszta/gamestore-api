@@ -212,4 +212,21 @@ import com.qa.gamestore.domain.Games;
 		
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	}
+	
+	@Test
+	void testReadByGenreId() throws Exception {
+		List<Games> expectedGames = Arrays.asList(
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true),
+				new Games(5L, "Animal Crossing New Horizons", "The most relaxing game ever", 3, 45.25, true)
+				);
+		
+		Integer genreId = 6;
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, URL + "/read/genre/" + genreId);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
 }
