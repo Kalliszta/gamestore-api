@@ -81,7 +81,7 @@ public class Accounts {
 		this.username = newAccount.getUsername();
 		this.password = newAccount.getPassword();;
 		this.firstname = newAccount.getFirstname();;
-		this.surname = newAccount.getUsername();;
+		this.surname = newAccount.getSurname();;
 		this.age = newAccount.getAge();
 		this.email = newAccount.getEmail();;
 		this.phoneNumber = newAccount.getPhoneNumber();
