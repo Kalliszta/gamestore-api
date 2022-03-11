@@ -26,7 +26,7 @@ public class GamesControllerTest {
 	@BeforeEach
 	void setUpForEach() {
 		newGame = new Games("LittleBigPlanet", "Best platformer ever", 7, 29.99, true);
-		newGame = new Games(1L, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true);
+		savedGame = new Games(1L, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true);
 	}
 	
 //	@Test
