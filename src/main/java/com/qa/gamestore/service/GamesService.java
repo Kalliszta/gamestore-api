@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.repo.GamesRepo;
 
+import exceptions.IdNotFoundException;
+
 @Service
 public class GamesService implements ServiceInterface<Games> {
 	
@@ -54,7 +56,7 @@ public class GamesService implements ServiceInterface<Games> {
 	public boolean delete(Long id) {
 		try {
 			this.repo.deleteById(id);
-		} catch (Exception e) {
+		} catch (IdNotFoundException e) {
 			//TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}
