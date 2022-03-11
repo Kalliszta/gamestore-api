@@ -2,6 +2,8 @@ package com.qa.gamestore.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -44,5 +46,23 @@ public class GamesServiceTest {
 		Mockito.verify(this.repo, Mockito.times(1)).save(newGame);
 	}
 	
-
+	@Test
+	void testUpdate() {
+		//given
+		//some things set up using setUpForEach
+		Long id = 1L;
+		Optional<Games> optGame = Optional.of(new Games(id, null, null, 0, 0.0, null));
+		Games updatedGame = new Games(id, newGame.getName(), newGame.getDescription(), newGame.getAgeRating(), newGame.getCost(), newGame.isOnlineGame());
+		
+		//when
+		Mockito.when(this.repo.findById(id)).thenReturn(optGame);
+		Mockito.when(this.repo.save(updatedGame)).thenReturn(updatedGame);
+		
+		//then
+		assertThat(this.service.update(id, newGame)).isEqualTo(updatedGame);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
+		Mockito.verify(this.repo, Mockito.times(1)).save(updatedGame);
+	}
 }
