@@ -149,12 +149,10 @@ public class Games {
 		return "Games [id=" + id + ", name=" + name + ", description=" + description + ", ageRating=" + ageRating + ", cost=" + cost + ", onlineGame=" + onlineGame + "]";
 	}
 
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(ageRating, cost, description, id, name, onlineGame);
+		return Objects.hash(ageRating, cost, description, name, onlineGame);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -165,13 +163,13 @@ public class Games {
 		if (getClass() != obj.getClass())
 			return false;
 		Games other = (Games) obj;
-		return Objects.equals(ageRating, other.ageRating)
+		return Objects.equals(ageRating, other.ageRating) 
 				&& Objects.equals(cost, other.cost)
 				&& Objects.equals(description, other.description)
-				&& Objects.equals(id, other.id)
 				&& Objects.equals(name, other.name)
 				&& Objects.equals(onlineGame, other.onlineGame);
 	}
+
 
 
 //	public List<GamePlatforms> getGamePlatforms() {

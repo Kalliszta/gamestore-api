@@ -18,7 +18,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 public class OrderGames {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,4 +32,9 @@ public class OrderGames {
 	@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_games_id")
 	private Games games;
+
+	@Override
+	public String toString() {
+		return "OrderGames [id=" + id + ", orders=" + orders + ", games=" + games + "]";
+	}
 }
