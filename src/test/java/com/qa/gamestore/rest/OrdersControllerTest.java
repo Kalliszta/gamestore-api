@@ -32,22 +32,8 @@ public class OrdersControllerTest {
 	@MockBean
 	private OrdersService service;
 	
-	@MockBean
-	private AccountsService accService;
-	
-	
 	@BeforeEach
 	void setUpForEach() {
-		List<Accounts> listOfAccounts = Arrays.asList(
-				new Accounts(1L, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true),
-				new Accounts(2L, "LilyHere", "pass1", "Lily", "Smith", 25, "lily@email.com", "05354664637", false),
-				new Accounts(3L, "User3", "pAsSwOrD", "Bob", "Roberts", 12, "roberts@email.com", "07853364637", false),
-				new Accounts(4L, "Steph", "&7C,Mt67@)skZO3", "Steph", "Ann", 30, "stepha@email.com", "07853388831", false)
-				);
-		for (Accounts a: listOfAccounts) {
-			accService.create(a);
-		}
-		
 		newOrder = new Orders(4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
 		savedOrder = new Orders(1L, 4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
 	}
