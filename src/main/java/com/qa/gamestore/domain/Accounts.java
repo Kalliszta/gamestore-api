@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -50,6 +52,7 @@ public class Accounts {
 	private Boolean admin = false; //Non-primitive to allow @NonNull annotation
 	
 	//relationship with orders
+	//@JsonManagedReference
 	@OneToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<Orders> orders;

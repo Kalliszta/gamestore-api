@@ -65,3 +65,19 @@ INSERT INTO accounts(username, password, firstname, surname, age, email, phone_n
 ('User3','udxpAsSwOrD','Bob','Roberts', 12, 'roberts@email.com', '07853364637', 0),
 ('Steph','udx&7C,Mt67@)skZO3','Steph','Ann', 30, 'stepha@email.com', '07853388831', 0)
 ;
+
+INSERT INTO orders(order_date, fk_accounts_id) VALUES
+('2022-03-12 13:08:45.000000', 1),
+('2022-03-11 08:56:32.000000', 1),
+('2022-03-12 07:00:12.000000', 2),
+('2022-03-11 20:09:58.000000', 2),
+('2022-03-12 07:00:12.000000', 3)
+;
+
+INSERT INTO order_games(fk_orders_id, fk_games_id) VALUES
+(1, 1),
+(1, 2),
+(2, 1),
+(2, 1),
+(3, 5)
+;

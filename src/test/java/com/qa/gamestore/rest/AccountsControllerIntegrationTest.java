@@ -95,7 +95,7 @@ package com.qa.gamestore.rest;
 		@Test
 		void testUpdate() throws Exception {
 			id = 2L;
-			Accounts expectedAccount = new Accounts(id, "LRose", "newPassword", "Lilian", "Rose", 25, "rose@email.com", "07111311317", true); //values are each changed to see if all change
+			Accounts expectedAccount = new Accounts(id, "LRose", "newPassword", "Lilian", "Rose", 25, "rose@email.com", "07111311317", true); //values are each changed to see if all change (excluding the id)
 				
 			MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 					.request(HttpMethod.PUT, URL + "/update/" + id)

@@ -103,8 +103,6 @@ public class AccountsServiceTest {
 		Mockito.when(this.repo.findById(id)).thenReturn(optAccount);
 		Mockito.when(this.repo.save(updatedAccount)).thenReturn(updatedAccount);
 		
-		System.out.println("hallo");
-		System.out.println(updatedAccount);
 		//then
 		assertThat(this.service.update(id, newAccount)).isEqualTo(updatedAccount);
 		
