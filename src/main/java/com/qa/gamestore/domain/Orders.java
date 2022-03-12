@@ -1,10 +1,6 @@
 package com.qa.gamestore.domain;
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -16,7 +12,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -51,31 +46,23 @@ public class Orders {
 	public Orders(Long accountsId) {
 		this.accountsId = accountsId;
 		Date d = new Date();
-		this.orderDate = new Timestamp(d.getTime());
+		this.setOrderDate(d);
 	}
 	
 	public Orders(Long accountsId, Date d) {
 		this.accountsId = accountsId;
-		this.orderDate = new Timestamp(d.getTime());
+		this.setOrderDate(d);
 	}
 
 	public Orders(Long id, Long accountsId, Date d) {
 		this.id = id;
 		this.accountsId = accountsId;
-		this.orderDate = new Timestamp(d.getTime());
+		this.setOrderDate(d);
 	}
 
 	public void updateFields(Orders newOrder) {
 		this.accountsId = newOrder.getAccountsId();
 		this.orderDate = newOrder.getOrderDate();
-	}
-	
-	public Timestamp getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(Timestamp orderDate) {
-		this.orderDate = orderDate;
 	}
 
 	public Long getId() {
@@ -94,6 +81,22 @@ public class Orders {
 		this.accountsId = accountsId;
 	}
 
+	public Timestamp getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Timestamp orderDate) {
+		this.orderDate = orderDate;
+	}
+	
+	public void setOrderDate(Date d) {
+		if (d != null) {
+			this.orderDate = new Timestamp(d.getTime());
+		} else if (this.orderDate == null){
+			this.orderDate = null;
+		}
+	}
+	
 	public Accounts getAccounts() {
 		return accounts;
 	}

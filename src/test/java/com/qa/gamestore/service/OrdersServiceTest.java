@@ -33,7 +33,7 @@ public class OrdersServiceTest {
 	@MockBean
 	private OrdersRepo repo;
 	
-	@MockBean
+	@Autowired
 	private AccountsRepo accRepo;
 	
 	@BeforeEach
@@ -66,6 +66,18 @@ public class OrdersServiceTest {
 		
 		//verify
 		Mockito.verify(this.repo, Mockito.times(1)).save(newOrder);
+	}
+	
+	@Test
+	void testCreateFail() { //due to no account existing with the given accountId
+		//given
+		//set up using setUpForEach
+		Orders failOrder = new Orders(100L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
+		//when
+		Mockito.when(this.repo.save(failOrder)).thenReturn(failOrder);
+		
+		//then
+		assertThat(this.service.create(failOrder)).isEqualTo(null);
 	}
 	
 	@Test
