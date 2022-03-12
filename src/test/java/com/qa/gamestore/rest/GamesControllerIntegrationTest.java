@@ -97,7 +97,7 @@ import com.qa.gamestore.domain.Games;
 	@Test
 	void testUpdate() throws Exception {
 		id = 1L;
-		Games expectedGame = new Games(1L, "Elder Scrolls Online", "An online RPG", 19, 59.99, false); //values are each changed to see if all change
+		Games expectedGame = new Games(1L, "Elder Scrolls Online", "An online RPG", 19, 59.99, false); //values are each changed to see if all change (excluding the id)
 			
 		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 				.request(HttpMethod.PUT, URL + "/update/" + id)

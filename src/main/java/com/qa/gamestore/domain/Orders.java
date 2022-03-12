@@ -1,6 +1,7 @@
 package com.qa.gamestore.domain;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public class Orders {
 	@Transient
 	private Long accountsId;
 	
-	private LocalDateTime orderDate; //TO-DO get to work
+	private Timestamp orderDate; //TO-DO get to work
 	
 	//relationship with accounts
 	@JsonBackReference
@@ -44,25 +45,24 @@ public class Orders {
 	
 	public Orders(Long accountsId) {
 		this.accountsId = accountsId;
-		this.orderDate = LocalDateTime.now();
+		Date d = new Date();
+		this.setOrderDate(d);
+	}
+	
+	public Orders(Long accountsId, Date d) {
+		this.accountsId = accountsId;
+		this.setOrderDate(d);
 	}
 
-	public Orders(Long id, Long accountsId) {
+	public Orders(Long id, Long accountsId, Date d) {
 		this.id = id;
 		this.accountsId = accountsId;
-		this.orderDate = LocalDateTime.now();
+		this.setOrderDate(d);
 	}
 
 	public void updateFields(Orders newOrder) {
+		this.accountsId = newOrder.getAccountsId();
 		this.orderDate = newOrder.getOrderDate();
-	}
-	
-	public LocalDateTime getOrderDate() {
-		return orderDate;
-	}
-
-	public void setOrderDate(LocalDateTime orderDate) {
-		this.orderDate = orderDate;
 	}
 
 	public Long getId() {
@@ -70,13 +70,33 @@ public class Orders {
 	}
 	
 	public Long getAccountsId() {
+		if (accounts != null) {
+			return this.accounts.getId();
+		} else {
 		return accountsId;
+		}
 	}
 
 	public void setAccountsId(Long accountsId) {
 		this.accountsId = accountsId;
 	}
 
+	public Timestamp getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(Timestamp orderDate) {
+		this.orderDate = orderDate;
+	}
+	
+	public void setOrderDate(Date d) {
+		if (d != null) {
+			this.orderDate = new Timestamp(d.getTime());
+		} else if (this.orderDate == null){
+			this.orderDate = null;
+		}
+	}
+	
 	public Accounts getAccounts() {
 		return accounts;
 	}
@@ -87,8 +107,8 @@ public class Orders {
 	
 	@Override
 	public String toString() {
-		return "Orders [id=" + id + ", orderDate=" + orderDate + ", accounts=" + accounts + "]";
-	}
+		return "Orders [id=" + id + ", accountsId=" + accountsId + ", orderDate=" + orderDate + "]";
+	}	
 
 	@Override
 	public int hashCode() {
@@ -105,8 +125,6 @@ public class Orders {
 			return false;
 		Orders other = (Orders) obj;
 		return Objects.equals(accounts, other.accounts) && Objects.equals(orderDate, other.orderDate);
-	}	
-	
-	
+	}
 	
 }

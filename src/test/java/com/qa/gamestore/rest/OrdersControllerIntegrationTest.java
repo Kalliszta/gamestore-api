@@ -1,7 +1,10 @@
 package com.qa.gamestore.rest;
 
 	import java.util.List;
-	import java.util.Arrays;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 	import org.junit.jupiter.api.Disabled;
 	import org.junit.jupiter.api.Test;
@@ -21,14 +24,14 @@ package com.qa.gamestore.rest;
 	import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 	import com.fasterxml.jackson.databind.ObjectMapper;
-	import com.qa.gamestore.domain.Accounts;
+	import com.qa.gamestore.domain.Orders;
 
 	@Disabled //used to ignore/disable class (use when testing coverage)
 	@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 	@AutoConfigureMockMvc
 	@Sql(scripts = {"classpath:schema-test.sql","classpath:data-test.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 	@ActiveProfiles(profiles = "test")
-	public class AccountsControllerIntegrationTest {
+	public class OrdersControllerIntegrationTest {
 
 		@Autowired
 		private MockMvc mock;
@@ -36,43 +39,45 @@ package com.qa.gamestore.rest;
 		@Autowired
 		private ObjectMapper jsonifier; //maps java object to json
 		
-		private final String URL = "http://localhost:8080/gamestore/accounts";
+		private final String URL = "http://localhost:8080/gamestore/orders";
 		private Long id;
 		
 		// ### Tests for basic CRUD endpoints ###
 		@Test
 		void testCreate() throws Exception {
-			Accounts testAccount = new Accounts(0L, "TestUser", "pass123", "Sally", "Smith", 23, "sallys@email.com", "07444271155", false);
-			Accounts expectedAccount = new Accounts(5L, "TestUser", "pass123", "Sally", "Smith", 23, "sallys@email.com", "07444271155", false);
+			Orders testOrder = new Orders(0L, 4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
+			Orders expectedOrder = new Orders(6L, 4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
 				
 			MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 					.request(HttpMethod.POST, URL + "/create")
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(jsonifier.writeValueAsString(testAccount))
+					.content(jsonifier.writeValueAsString(testOrder))
 					.accept(MediaType.APPLICATION_JSON);
 			
 			ResultMatcher status = MockMvcResultMatchers.status().isCreated();
-			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedAccount));
+			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedOrder));
 			
 			this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 		
 		}
 		
+		
 		@Test
 		void testReadAll() throws Exception {
 			//creation of objects in Java as although they exist in test database in Java they aren't existing objects
-			List<Accounts> expectedAccounts = Arrays.asList(
-					new Accounts(1L, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true),
-					new Accounts(2L, "LilyHere", "pass1", "Lily", "Smith", 25, "lily@email.com", "05354664637", false),
-					new Accounts(3L, "User3", "pAsSwOrD", "Bob", "Roberts", 12, "roberts@email.com", "07853364637", false),
-					new Accounts(4L, "Steph", "&7C,Mt67@)skZO3", "Steph", "Ann", 30, "stepha@email.com", "07853388831", false)
+			List<Orders> expectedOrders = Arrays.asList(
+					new Orders(1L, 1L, Timestamp.valueOf("2022-03-12 13:08:45.000")),
+					new Orders(2L, 1L, Timestamp.valueOf("2022-03-11 08:56:32.000")),
+					new Orders(3L, 2L, Timestamp.valueOf("2022-03-12 07:00:12.000")),
+					new Orders(4L, 2L, Timestamp.valueOf("2022-03-11 20:09:58.000")),
+					new Orders(5L, 3L, Timestamp.valueOf("2022-03-12 07:00:12.000"))
 					);
 			
 			MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 					.request(HttpMethod.GET, URL + "/read/all");
 			
 			ResultMatcher status = MockMvcResultMatchers.status().isOk();
-			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedAccounts));
+			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedOrders));
 			
 			this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 		}
@@ -81,13 +86,13 @@ package com.qa.gamestore.rest;
 		void testReadById() throws Exception {
 			id = 1L;
 			//creation of object in Java as although it exists in test database in Java it doesn't exist as an object
-			Accounts expectedAccount = new Accounts(id, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true);
+			Orders expectedOrder = new Orders(id, 1L, Timestamp.valueOf("2022-03-12 13:08:45.000"));
 			
 			MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 					.request(HttpMethod.GET, URL + "/read/" + id);
 			
 			ResultMatcher status = MockMvcResultMatchers.status().isOk();
-			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedAccount));
+			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedOrder));
 			
 			this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 		}
@@ -95,16 +100,16 @@ package com.qa.gamestore.rest;
 		@Test
 		void testUpdate() throws Exception {
 			id = 2L;
-			Accounts expectedAccount = new Accounts(id, "LRose", "newPassword", "Lilian", "Rose", 25, "rose@email.com", "07111311317", true); //values are each changed to see if all change (excluding the id)
+			Orders expectedOrder = new Orders(id, 1L, Timestamp.valueOf("2022-03-11 08:56:32.000")); //values are each changed to see if all change (excluding the id)
 				
 			MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
 					.request(HttpMethod.PUT, URL + "/update/" + id)
 					.contentType(MediaType.APPLICATION_JSON)
-					.content(jsonifier.writeValueAsString(expectedAccount))
+					.content(jsonifier.writeValueAsString(expectedOrder))
 					.accept(MediaType.APPLICATION_JSON);
 			
 			ResultMatcher status = MockMvcResultMatchers.status().isAccepted();
-			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedAccount));
+			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedOrder));
 		
 			this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 		
