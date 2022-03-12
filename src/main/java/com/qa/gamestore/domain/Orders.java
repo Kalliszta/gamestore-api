@@ -105,6 +105,10 @@ public class Orders {
 		this.accounts = accounts;
 	}
 	
+	@Override
+	public String toString() {
+		return "Orders [id=" + id + ", accountsId=" + accountsId + ", orderDate=" + orderDate + "]";
+	}	
 
 	@Override
 	public int hashCode() {
@@ -122,11 +126,5 @@ public class Orders {
 		Orders other = (Orders) obj;
 		return Objects.equals(accounts, other.accounts) && Objects.equals(orderDate, other.orderDate);
 	}
-
-	@Override
-	public String toString() {
-		return "Orders [id=" + id + ", accountsId=" + accountsId + ", orderDate=" + orderDate + ", accounts=" + accounts
-				+ "]";
-	}	
 	
 }
