@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.qa.gamestore.domain.Platforms;
 import com.qa.gamestore.repo.PlatformsRepo;
 
+
 @SpringBootTest
 @ActiveProfiles("test")
 public class PlatformsServiceTest {
