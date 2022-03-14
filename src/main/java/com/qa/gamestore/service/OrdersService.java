@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Accounts;
+import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
 import com.qa.gamestore.exceptions.IdNotFoundException;
 import com.qa.gamestore.repo.AccountsRepo;
+import com.qa.gamestore.repo.OrderGamesRepo;
 import com.qa.gamestore.repo.OrdersRepo;
 
 @Service
@@ -17,9 +19,10 @@ public class OrdersService implements ServiceInterface<Orders> {
 	
 	private OrdersRepo repo;
 	private AccountsRepo accRepo;
+	private OrderGamesRepo ordGRepo;
 	
 	@Autowired
-	public OrdersService(OrdersRepo repo, AccountsRepo accRepo) {
+	public OrdersService(OrdersRepo repo, AccountsRepo accRepo, OrderGamesRepo ordGRepo) {
 		this.repo = repo;
 		this.accRepo = accRepo;
 	}
@@ -73,5 +76,11 @@ public class OrdersService implements ServiceInterface<Orders> {
 		return !(this.repo.existsById(id)); //return true if delete successful
 	}
 	
+	//### custom query methods go below ###
+
+	public OrderGames add(OrderGames orderGame) {
+		//TO-DO exception handling
+		return this.ordGRepo.save(orderGame);
+	}
 	
 }
