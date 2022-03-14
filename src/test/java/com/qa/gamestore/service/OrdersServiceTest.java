@@ -141,7 +141,7 @@ public class OrdersServiceTest {
 		//given
 		//some things set up using setUpForEach
 		id = 1L;
-		Optional<Orders> optOrder = Optional.of(new Orders(1L, 1L, Timestamp.valueOf("2022-03-12 13:08:45.000")));
+		Optional<Orders> optOrder = Optional.of(new Orders(id, 1L, Timestamp.valueOf("2022-03-12 13:08:45.000")));
 		//when
 		Mockito.when(this.repo.findById(id)).thenReturn(optOrder);
 		Mockito.when(this.repo.existsById(id)).thenReturn(false);

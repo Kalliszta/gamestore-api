@@ -25,7 +25,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
 
-@Disabled //used to ignore/disable class (use when testing coverage)
+//@Disabled //used to ignore/disable class (use when testing coverage)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Sql(scripts = {"classpath:schema-test.sql","classpath:data-test.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
@@ -59,7 +59,6 @@ public class OrdersControllerIntegrationTest {
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	
 	}
-	
 	
 	@Test
 	void testReadAll() throws Exception {

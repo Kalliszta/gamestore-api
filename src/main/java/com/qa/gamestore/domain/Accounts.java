@@ -22,7 +22,7 @@ import lombok.NonNull;
 @NoArgsConstructor
 public class Accounts {	
 
-	static String hashCode = "udx";
+	//static String hashCode = "udx";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -50,7 +50,6 @@ public class Accounts {
 	private Boolean admin = false; //Non-primitive to allow @NonNull annotation
 	
 	//relationship with orders
-	//@JsonManagedReference
 	@OneToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 	private List<Orders> orders;
@@ -80,7 +79,7 @@ public class Accounts {
 	
 	public void updateFields(Accounts newAccount) {
 		this.username = newAccount.getUsername();
-		this.password = newAccount.getPassword(); //don't apply hashsalt here as then it would be applied twice
+		this.password = newAccount.getPassword();
 		this.firstname = newAccount.getFirstname();
 		this.surname = newAccount.getSurname();
 		this.age = newAccount.getAge();
@@ -89,11 +88,11 @@ public class Accounts {
 		this.admin = newAccount.isAdmin();
 	}
 	
-	public String encrypt(String password) {
-		String hash = (hashCode + password);
-		//TO-DO complete hashing with salt
-		return hash;
-	}
+//	public String encrypt(String password) {
+//		String hash = (hashCode + password);
+//		//TO-DO complete hashing with salt
+//		return hash;
+//	}
 
 	public String getUsername() {
 		return username;
@@ -108,7 +107,8 @@ public class Accounts {
 	}
 
 	public void setPassword(String password) {
-		this.password = this.encrypt(password);
+		//this.password = this.encrypt(password);
+		this.password = password;
 	}
 
 	public String getFirstname() {
