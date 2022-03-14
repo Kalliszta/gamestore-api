@@ -6,24 +6,39 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
+import com.qa.gamestore.domain.Genres;
+
+import com.qa.gamestore.domain.Platforms;
 import com.qa.gamestore.exceptions.IdNotFoundException;
+import com.qa.gamestore.repo.GameGenresRepo;
+import com.qa.gamestore.repo.GamePlatformsRepo;
 import com.qa.gamestore.repo.GamesRepo;
 
 @Service
 public class GamesService implements ServiceInterface<Games> {
 	
 	private GamesRepo repo;
+	private GamePlatformsRepo pRepo;
+	private GameGenresRepo gRepo;
+	
+	private PlatformsService pSer;
+	private GenresService gSer;
 	
 	@Autowired
-	public GamesService(GamesRepo repo) {
+	public GamesService(GamesRepo repo, GamePlatformsRepo pRepo, GameGenresRepo gRepo, PlatformsService pSer, GenresService gSer) {
 		this.repo = repo;
+		this.pRepo = pRepo;
+		this.gRepo = gRepo;
+		this.pSer =pSer;
+		this.gSer =gSer;
 	}
 	
 	
 	@Override
 	public Games create(Games game) {
-		//TO-DO exception handling
 		return this.repo.save(game);
 	}
 	
@@ -102,6 +117,21 @@ public class GamesService implements ServiceInterface<Games> {
 	public List<Games> items(Long id) {
 		return this.repo.getGamesByOrderId(id);
 	}
-
-
+	
+	public GamePlatforms add(GamePlatforms gamePlatform) {
+		Games game = this.readById(gamePlatform.getGamesId());
+		Platforms platform = pSer.readById(gamePlatform.getPlatformsId());
+		gamePlatform.setGames(game);
+		gamePlatform.setPlatforms(platform);
+		return this.pRepo.save(gamePlatform);
+	}
+	
+	public GameGenres add(GameGenres gameGenre) {
+		Games game = this.readById(gameGenre.getGamesId());
+		Genres genre = gSer.readById(gameGenre.getGenresId());
+		gameGenre.setGames(game);
+		gameGenre.setGenres(genre);
+		return this.gRepo.save(gameGenre);
+	}
+	
 }
