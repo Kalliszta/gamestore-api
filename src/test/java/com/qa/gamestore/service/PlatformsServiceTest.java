@@ -100,7 +100,7 @@ public class PlatformsServiceTest {
 		id = 1L;
 
 		Optional<Platforms> optPlatform = Optional.of(new Platforms(id, null, null)); //optional is all null then same values as originally are used to overwrite the optional values to test if each update
-		Platforms updatedPlatform = new Platforms(id, "PS4", "PlayStation");
+		Platforms updatedPlatform = new Platforms("PS4", "PlayStation");
 		
 		//when
 		Mockito.when(this.repo.findById(id)).thenReturn(optPlatform);

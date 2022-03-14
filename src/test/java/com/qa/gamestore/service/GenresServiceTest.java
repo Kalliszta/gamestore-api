@@ -99,7 +99,7 @@ public class GenresServiceTest {
 		id = 1L;
 
 		Optional<Genres> optGenre = Optional.of(new Genres(id, null)); //optional is all null then same values as originally are used to overwrite the optional values to test if each update
-		Genres updatedGenre = new Genres(id, "Platformer");
+		Genres updatedGenre = new Genres("Platformer");
 		
 		//when
 		Mockito.when(this.repo.findById(id)).thenReturn(optGenre);
