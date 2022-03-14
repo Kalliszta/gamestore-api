@@ -231,4 +231,21 @@ import com.qa.gamestore.domain.Games;
 		
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	}
+	
+	@Test
+	void testReadByOrderId() throws Exception {
+		id = 1L;
+		List<Games> expectedGames = Arrays.asList(
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false)
+				);
+		
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, "http://localhost:8080/gamestore/orders/read/" + id + "/items");
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
 }
