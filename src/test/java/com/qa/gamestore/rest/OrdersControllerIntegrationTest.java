@@ -24,9 +24,10 @@ import java.util.Arrays;
 	import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 	import com.fasterxml.jackson.databind.ObjectMapper;
-	import com.qa.gamestore.domain.Orders;
+import com.qa.gamestore.domain.OrderGames;
+import com.qa.gamestore.domain.Orders;
 
-	@Disabled //used to ignore/disable class (use when testing coverage)
+	//@Disabled //used to ignore/disable class (use when testing coverage)
 	@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 	@AutoConfigureMockMvc
 	@Sql(scripts = {"classpath:schema-test.sql","classpath:data-test.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
@@ -126,5 +127,23 @@ import java.util.Arrays;
 			ResultMatcher content = MockMvcResultMatchers.content().string("true"); //expect boolean true but can check using "true" as there is no ResultMatchers for boolean
 			
 			this.mock.perform(mockRequest).andExpect(status).andExpect(content); //TO-DO joined tables isn't letting it be deleted FIX
+		}
+		
+		@Test
+		void testAdd() throws Exception {
+			OrderGames testOrderGame = new OrderGames(0L, 1L, 1L);
+			OrderGames expectedOrderGame = new OrderGames(6L, 1L, 1L);
+				
+			MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+					.request(HttpMethod.POST, URL + "/add")
+					.contentType(MediaType.APPLICATION_JSON)
+					.content(jsonifier.writeValueAsString(testOrderGame))
+					.accept(MediaType.APPLICATION_JSON);
+			
+			ResultMatcher status = MockMvcResultMatchers.status().isAccepted();
+			ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedOrderGame));
+			
+			this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+		
 		}
 }

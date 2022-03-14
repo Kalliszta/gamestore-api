@@ -1,15 +1,11 @@
 package com.qa.gamestore.rest;
 
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
 import com.qa.gamestore.service.OrdersService;
@@ -62,10 +58,10 @@ public class OrdersController implements ControllerInterface<Orders> {
 	
 	// ### custom query mappings go below ###
 	
+	//Adds a game to an order
 	@PostMapping("/add")
 	public ResponseEntity<OrderGames> add(@RequestBody OrderGames info) {
 		return new ResponseEntity<OrderGames>(this.service.add(info), HttpStatus.ACCEPTED);
 	}
-
 	
 }

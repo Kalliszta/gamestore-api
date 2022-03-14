@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -22,12 +24,12 @@ public class OrderGames {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	//@JsonBackReference
+	@JsonBackReference(value = "orders")
 	@ManyToOne(targetEntity = Orders.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_orders_id")
 	private Orders orders;
 	
-	//@JsonBackReference
+	@JsonBackReference(value = "games")
 	@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY)
 	@JoinColumn(name="fk_games_id")
 	private Games games;
@@ -119,7 +121,8 @@ public class OrderGames {
 		if (getClass() != obj.getClass())
 			return false;
 		OrderGames other = (OrderGames) obj;
-		return Objects.equals(gamesId, other.gamesId) && Objects.equals(ordersId, other.ordersId);
+		return Objects.equals(gamesId, other.gamesId)
+				&& Objects.equals(ordersId, other.ordersId);
 	}
 
 }

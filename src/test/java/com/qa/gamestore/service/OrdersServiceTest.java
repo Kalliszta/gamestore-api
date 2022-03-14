@@ -16,14 +16,19 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.qa.gamestore.domain.Accounts;
+import com.qa.gamestore.domain.Games;
+import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
 import com.qa.gamestore.repo.AccountsRepo;
+import com.qa.gamestore.repo.GamesRepo;
+import com.qa.gamestore.repo.OrderGamesRepo;
 import com.qa.gamestore.repo.OrdersRepo;
 
 @SpringBootTest
 @ActiveProfiles("test")
 public class OrdersServiceTest {
 	private Long id;
+	Long accountId;
 	private Orders newOrder;
 	private Orders savedOrder;
 	
@@ -32,66 +37,51 @@ public class OrdersServiceTest {
 	
 	@MockBean
 	private OrdersRepo repo;
+	@MockBean
+	private OrderGamesRepo ordGRepo;
+	@MockBean
+	private AccountsRepo aRepo;
+	@MockBean
+	private GamesRepo gRepo;
 	
-	@Autowired
-	private AccountsRepo accRepo;
 	
 	@BeforeEach
-	void setUpForEach() { //used for values that are re-used
-		List<Accounts> listOfAccounts = Arrays.asList(
-				new Accounts(1L, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true),
-				new Accounts(2L, "LilyHere", "pass1", "Lily", "Smith", 25, "lily@email.com", "05354664637", false),
-				new Accounts(3L, "User3", "pAsSwOrD", "Bob", "Roberts", 12, "roberts@email.com", "07853364637", false),
-				new Accounts(4L, "Steph", "&7C,Mt67@)skZO3", "Steph", "Ann", 30, "stepha@email.com", "07853388831", false)
-				);
-		for (Accounts a: listOfAccounts) {
-			accRepo.save(a);
-		}
-		
-		newOrder = new Orders(4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
-		savedOrder = new Orders(1L, 4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
+	void setUpForEach() { //used for values that are re-used		
+		newOrder = new Orders(1L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
+		savedOrder = new Orders(1L, 1L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
 	}
 
 	//TO-DO fix
 	@Test
 	void testCreate() {
 		//given
-		//set up using setUpForEach
+		//some things set up using setUpForEach
+		accountId = 1L;
+		Optional<Accounts> optAccount = Optional.of(new Accounts (accountId, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true));
 		
 		//when
+		Mockito.when(this.aRepo.findById(accountId)).thenReturn(optAccount);
 		Mockito.when(this.repo.save(newOrder)).thenReturn(savedOrder);
 		
 		//then
 		assertThat(this.service.create(newOrder)).isEqualTo(savedOrder);
 		
 		//verify
+		Mockito.verify(this.aRepo, Mockito.times(1)).findById(accountId);
 		Mockito.verify(this.repo, Mockito.times(1)).save(newOrder);
-	}
-	
-	@Test
-	void testCreateFail() { //due to no account existing with the given accountId
-		//given
-		//set up using setUpForEach
-		Orders failOrder = new Orders(100L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
-		//when
-		Mockito.when(this.repo.save(failOrder)).thenReturn(failOrder);
-		
-		//then
-		assertThat(this.service.create(failOrder)).isEqualTo(null);
 	}
 	
 	@Test
 	void testReadAll() {
 		//given
 		//some things set up using setUpForEach
-	
 		List<Orders> expectedOrders = Arrays.asList(
 				savedOrder,
 				new Orders(1L, 1L, Timestamp.valueOf("2022-03-12 13:08:45.000")),
 				new Orders(2L, 1L, Timestamp.valueOf("2022-03-11 08:56:32.000")),
-				new Orders(3L, 2L, Timestamp.valueOf("2022-03-12 07:00:12.000")),
-				new Orders(4L, 2L, Timestamp.valueOf("2022-03-11 20:09:58.000")),
-				new Orders(5L, 3L, Timestamp.valueOf("2022-03-12 07:00:12.000"))
+				new Orders(3L, 1L, Timestamp.valueOf("2022-03-12 07:00:12.000")),
+				new Orders(4L, 1L, Timestamp.valueOf("2022-03-11 20:09:58.000")),
+				new Orders(5L, 1L, Timestamp.valueOf("2022-03-12 07:00:12.000"))
 				);
 		
 		//when
@@ -109,7 +99,7 @@ public class OrdersServiceTest {
 		//given
 		//some things set up using setUpForEach
 		id = 1L;
-		Optional<Orders> optOrder = Optional.of(new Orders(4L, Timestamp.valueOf("2022-03-12 13:12:18.000")));
+		Optional<Orders> optOrder = Optional.of(new Orders(1L, Timestamp.valueOf("2022-03-12 13:12:18.000")));
 		
 		//when
 		Mockito.when(this.repo.findById(id)).thenReturn(optOrder);
@@ -127,10 +117,13 @@ public class OrdersServiceTest {
 		//given
 		//some things set up using setUpForEach
 		id = 1L;
+		accountId = 1L;
+		Optional<Accounts> optAccount = Optional.of(new Accounts (accountId, "KallisztaG", "password123", "Kalliszta", "Grof", 19, "kalg@email.com", "07474354663", true));
 		Optional<Orders> optOrder = Optional.of(new Orders(id, null, null)); //optional is all null then same values as originally are used to overwrite the optional values to test if each update
-		Orders updatedOrder = new Orders(4L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
+		Orders updatedOrder = new Orders(1L, Timestamp.valueOf("2022-03-12 13:12:18.000"));
 		
 		//when
+		Mockito.when(this.aRepo.findById(accountId)).thenReturn(optAccount);
 		Mockito.when(this.repo.findById(id)).thenReturn(optOrder);
 		Mockito.when(this.repo.save(updatedOrder)).thenReturn(updatedOrder);
 		
@@ -138,6 +131,7 @@ public class OrdersServiceTest {
 		assertThat(this.service.update(id, newOrder)).isEqualTo(updatedOrder);
 		
 		//verify
+		Mockito.verify(this.aRepo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).save(updatedOrder);
 	}
@@ -172,6 +166,31 @@ public class OrdersServiceTest {
 		
 		//verify
 		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
+	}
+	
+	@Test
+	void testAdd() {
+		//given
+		Long orderId = 1L;
+		Long gameId = 1L;
+
+		Optional<Orders> optOrder = Optional.of(new Orders(orderId, 1L, Timestamp.valueOf("2022-03-12 13:12:18.000")));
+		Optional<Games> optGame = Optional.of(new Games(gameId, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
+		OrderGames newOrderGame = new OrderGames(1L, 1L);
+		OrderGames savedOrderGame = new OrderGames(1L, 1L, 1L);
+		
+		//when
+		Mockito.when(this.repo.findById(orderId)).thenReturn(optOrder);
+		Mockito.when(this.gRepo.findById(gameId)).thenReturn(optGame);
+		Mockito.when(this.ordGRepo.save(newOrderGame)).thenReturn(savedOrderGame);	
+		
+		//then
+		assertThat(this.service.add(newOrderGame)).isEqualTo(savedOrderGame);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(orderId);
+		Mockito.verify(this.gRepo, Mockito.times(1)).findById(gameId);
+		Mockito.verify(this.ordGRepo, Mockito.times(1)).save(newOrderGame);
 	}
 	
 }
