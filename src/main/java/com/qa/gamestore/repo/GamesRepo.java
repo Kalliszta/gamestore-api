@@ -17,9 +17,7 @@ public interface GamesRepo extends JpaRepository<Games, Long> {
 	// ##### Games #####
 
 	// ### Additional queries for Games ###
-	@Query(value = "SELECT * FROM games WHERE name = :inputName", nativeQuery = true) // nativeQuery = true, enables the
-																						// use of SQL commands as the
-																						// value instead of using JPQL
+	@Query(value = "SELECT * FROM games WHERE name = :inputName", nativeQuery = true) // nativeQuery = true, enables the use of SQL commands as the value instead of using JPQL
 	public List<Games> getGamesByName(@Param("inputName") String inputName);
 
 	@Query(value = "SELECT * FROM games WHERE age_rating <= :inputAge", nativeQuery = true)

@@ -13,4 +13,9 @@ public class IdNotFoundException extends NoSuchElementException {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@Override
+	public String getMessage() {
+		return "Id not found";
+	}
+	
 }

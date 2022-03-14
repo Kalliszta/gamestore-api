@@ -15,8 +15,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -25,14 +23,12 @@ import lombok.NonNull;
 	@NoArgsConstructor
 	public class Platforms {
 		
-		public Platforms(@NonNull String name, String company) {
-			super();
+		public Platforms(String name, String company) {
 			this.name = name;
 			this.company = company;
 		}
 		
-		public Platforms(Long id, @NonNull String name, String company) {
-			super();
+		public Platforms(Long id, String name, String company) {
 			this.id = id;
 			this.name = name;
 			this.company = company;

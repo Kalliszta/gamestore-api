@@ -44,14 +44,16 @@ public class OrdersService implements ServiceInterface<Orders> {
 
 	@Override
 	public Orders readById(Long id) {
-		// TO-DO exception handling
 		Optional<Orders> opOrder = this.repo.findById(id);
-		return opOrder.get();
+		if (opOrder.isPresent()) {
+			return opOrder.get();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public Orders update(Long id, Orders newOrder) {
-		// TO-DO exception handling
 		Accounts account = aSer.readById(newOrder.getAccountsId());
 		Optional<Orders> opOrder = this.repo.findById(id);
 		if (opOrder.isPresent()) {
@@ -66,18 +68,20 @@ public class OrdersService implements ServiceInterface<Orders> {
 	@Override
 	public boolean delete(Long id) {
 		try {
-			this.repo.deleteById(id);
+			if (repo.findById(id).isPresent()) {
+				this.repo.deleteById(id);
+			} else {
+				throw new IdNotFoundException();
+			}
 		} catch (IdNotFoundException e) {
-			// TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}
-		return !(this.repo.existsById(id)); // return true if delete successful
+		return !(this.repo.existsById(id)); //return true if delete successful
 	}
 
 	// ### custom query methods go below ###
 
 	public OrderGames add(OrderGames orderGame) {
-		// TO-DO exception handling
 		Orders order = this.readById(orderGame.getOrdersId());
 		Games game = gSer.readById(orderGame.getGamesId());
 		orderGame.setOrders(order);
