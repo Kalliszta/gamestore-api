@@ -223,13 +223,13 @@ public class GamesServiceTest {
 				);
 		
 		//when
-		Mockito.when(this.repo.getGamesByOrderGame(online)).thenReturn(expectedGames);
+		Mockito.when(this.repo.getGamesByOnlineGame(online)).thenReturn(expectedGames);
 		
 		//then
-		assertThat(this.service.readByOrderGame(online)).isEqualTo(expectedGames);
+		assertThat(this.service.readByOnlineGame(online)).isEqualTo(expectedGames);
 		
 		//verify
-		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOrderGame(online);
+		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOnlineGame(online);
 	}
 	
 	@Test
@@ -274,6 +274,26 @@ public class GamesServiceTest {
 		
 		//verify
 		Mockito.verify(this.repo, Mockito.times(1)).getGamesByGenreId(id);
+	}
+	
+	@Test
+	void testReadByOrderId() {
+		//given
+		//some things set up using setUpForEach
+		id = 1L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true)
+				);
+		
+		//when
+		Mockito.when(this.repo.getGamesByOrderId(id)).thenReturn(expectedGames);
+		
+		//then
+		assertThat(this.service.items(id)).isEqualTo(expectedGames);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOrderId(id);
 	}
 	
 }
