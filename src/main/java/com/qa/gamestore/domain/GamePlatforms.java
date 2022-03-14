@@ -85,7 +85,7 @@ import lombok.NonNull;
 			}
 		}
 
-		public void setPlatformssId(Long platformsId) {
+		public void setPlatformsId(Long platformsId) {
 			this.platformsId = platformsId;
 		}
 		

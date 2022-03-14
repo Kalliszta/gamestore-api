@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.service.GamesService;
 
@@ -278,4 +280,33 @@ public class GamesControllerTest {
 		Mockito.verify(this.service, Mockito.times(1)).items(id);
 	}
 
+	@Test
+	void testAddPlatform() {
+		//given
+		GamePlatforms newGamePlatform = new GamePlatforms(1L, 1L);
+		GamePlatforms savedGamePlatform = new GamePlatforms(1L, 1L, 1L);
+		//when
+		Mockito.when(this.service.add(newGamePlatform)).thenReturn(savedGamePlatform);
+		ResponseEntity<GamePlatforms> response = new ResponseEntity<GamePlatforms>(savedGamePlatform, HttpStatus.ACCEPTED);
+		//then
+		assertThat(response).isEqualTo(this.controller.add(newGamePlatform));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).add(newGamePlatform);
+	}
+	
+	@Test
+	void testAddGenre() {
+		//given
+		GameGenres newGameGenre = new GameGenres(1L, 1L);
+		GameGenres savedGameGenre = new GameGenres(1L, 1L, 1L);
+		//when
+		Mockito.when(this.service.add(newGameGenre)).thenReturn(savedGameGenre);
+		ResponseEntity<GameGenres> response = new ResponseEntity<GameGenres>(savedGameGenre, HttpStatus.ACCEPTED);
+		//then
+		assertThat(response).isEqualTo(this.controller.add(newGameGenre));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).add(newGameGenre);
+	}
 }

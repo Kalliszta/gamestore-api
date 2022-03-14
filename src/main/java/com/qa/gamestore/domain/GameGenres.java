@@ -84,7 +84,7 @@ import lombok.NonNull;
 			}
 		}
 
-		public void setGenressId(Long genresId) {
+		public void setGenresId(Long genresId) {
 			this.genresId = genresId;
 		}
 		
