@@ -62,6 +62,7 @@ public class OrdersController implements ControllerInterface<Orders> {
 	
 	// ### custom query mappings go below ###
 	
+	//Adds a game to an order
 	@PostMapping("/add")
 	public ResponseEntity<OrderGames> add(@RequestBody OrderGames info) {
 		return new ResponseEntity<OrderGames>(this.service.add(info), HttpStatus.ACCEPTED);
