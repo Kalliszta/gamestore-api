@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
 import com.qa.gamestore.service.OrdersService;
