@@ -283,10 +283,10 @@ public class GamesServiceTest {
 	void testReadByOrderId() {
 		//given
 		//some things set up using setUpForEach
-		id = 1L;
+		id = 4L;
 		List<Games> expectedGames = Arrays.asList(
 				savedGame,
-				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true)
+				new Games(id, "Minecraft", "A fun game to play with friends", 7, 19.99, true)
 				);
 		
 		//when
