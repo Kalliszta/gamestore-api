@@ -118,30 +118,17 @@ public class GamesServiceTest {
 		//given
 		//some things set up using setUpForEach
 		id = 1L;
+		Optional<Games> optGame = Optional.of(new Games(1L, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
 
 		//when
+		Mockito.when(this.repo.findById(id)).thenReturn(optGame);
 		Mockito.when(this.repo.existsById(id)).thenReturn(false);
 		
 		//then
 		assertThat(this.service.delete(id)).isTrue();
 		
 		//verify
-		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
-	}
-	
-	@Test
-	void testDeleteFail() {
-		//given
-		//some things set up using setUpForEach
-		id = 100L;
-
-		//when
-		Mockito.when(this.repo.existsById(id)).thenReturn(true);
-		
-		//then
-		assertThat(this.service.delete(id)).isFalse();
-		
-		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
 	}
 	
