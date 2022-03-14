@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.service.GamesService;
 
@@ -24,7 +26,7 @@ public class GamesController implements ControllerInterface<Games> {
 	
 	//create - POST request
 	@PostMapping("/games/create")
-	@Override
+	
 	public ResponseEntity<Games> create(@RequestBody Games info) {
 		return new ResponseEntity<Games>(this.service.create(info), HttpStatus.CREATED);
 		
@@ -103,4 +105,16 @@ public class GamesController implements ControllerInterface<Games> {
 		return new ResponseEntity<List<Games>>(this.service.items(id), HttpStatus.OK);
 	}
 	
+	//Adds a platform to a game
+	@PostMapping("/games/add/platform")
+	public ResponseEntity<GamePlatforms> add(@RequestBody GamePlatforms info) {
+		return new ResponseEntity<GamePlatforms>(this.service.add(info), HttpStatus.ACCEPTED);
+	}
+	
+	//Adds a genre to a game
+	@PostMapping("/games/add/genre")
+	public ResponseEntity<GameGenres> add(@RequestBody GameGenres info) {
+		return new ResponseEntity<GameGenres>(this.service.add(info), HttpStatus.ACCEPTED);
+	}
+
 }

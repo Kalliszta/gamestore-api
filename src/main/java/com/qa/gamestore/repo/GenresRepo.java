@@ -3,9 +3,9 @@ package com.qa.gamestore.repo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.qa.gamestore.domain.Orders;
+import com.qa.gamestore.domain.Genres;
 
 @Repository
-public interface OrdersRepo extends JpaRepository<Orders, Long>  {
+public interface GenresRepo extends JpaRepository<Genres, Long> {
 	
 }
