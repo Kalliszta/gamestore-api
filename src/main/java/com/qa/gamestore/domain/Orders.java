@@ -84,10 +84,6 @@ public class Orders {
 	public Timestamp getOrderDate() {
 		return orderDate;
 	}
-
-	public void setOrderDate(Timestamp orderDate) {
-		this.orderDate = orderDate;
-	}
 	
 	public void setOrderDate(Date d) {
 		if (d != null) {
