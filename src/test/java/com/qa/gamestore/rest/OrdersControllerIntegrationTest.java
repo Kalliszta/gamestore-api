@@ -60,7 +60,6 @@ public class OrdersControllerIntegrationTest {
 	
 	}
 	
-	
 	@Test
 	void testReadAll() throws Exception {
 		//creation of objects in Java as although they exist in test database in Java they aren't existing objects
