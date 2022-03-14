@@ -63,6 +63,5 @@ public class OrdersController implements ControllerInterface<Orders> {
 	public ResponseEntity<OrderGames> add(@RequestBody OrderGames info) {
 		return new ResponseEntity<OrderGames>(this.service.add(info), HttpStatus.ACCEPTED);
 	}
-
 	
 }
