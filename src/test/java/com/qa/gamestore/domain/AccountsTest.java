@@ -47,7 +47,7 @@ public class AccountsTest {
 	@Test
 	public void testGetPassword() {
 		//given
-		String expected = (Accounts.hashCode + "pass123");
+		String expected = ("pass123");
 		//when
 		String actual = existingAccount.getPassword();
 		//then
@@ -57,7 +57,7 @@ public class AccountsTest {
 	@Test
 	public void testSetPassword() {
 		//given
-		String expected = (Accounts.hashCode + "pass123");
+		String expected = ("pass123");
 		//when
 		existingAccount.setPassword("pass123");
 		String actual = existingAccount.getPassword();
@@ -195,7 +195,7 @@ public class AccountsTest {
 	@Test
 	public void testToString() {
 		//given
-		String expected = "Accounts [id=1, username=TestUser, password=udxpass123, firstname=Sally, surname=Smith, age=23, email=sallys@email.com, phoneNumber=07444271155, admin=false]";
+		String expected = "Accounts [id=1, username=TestUser, password=pass123, firstname=Sally, surname=Smith, age=23, email=sallys@email.com, phoneNumber=07444271155, admin=false]";
 		//when
 		String actual = existingAccount.toString();
 		//then

@@ -60,10 +60,10 @@ INSERT INTO game_genres(fk_games_id,fk_genres_id) VALUES
 ;
 
 INSERT INTO accounts(username, password, firstname, surname, age, email, phone_number, admin) VALUES
-('KallisztaG','udxpassword123','Kalliszta','Grof', 19, 'kalg@email.com', '07474354663', 1),
-('LilyHere','udxpass1','Lily','Smith', 25, 'lily@email.com', '05354664637', 0),
-('User3','udxpAsSwOrD','Bob','Roberts', 12, 'roberts@email.com', '07853364637', 0),
-('Steph','udx&7C,Mt67@)skZO3','Steph','Ann', 30, 'stepha@email.com', '07853388831', 0)
+('KallisztaG','password123','Kalliszta','Grof', 19, 'kalg@email.com', '07474354663', 1),
+('LilyHere','pass1','Lily','Smith', 25, 'lily@email.com', '05354664637', 0),
+('User3','pAsSwOrD','Bob','Roberts', 12, 'roberts@email.com', '07853364637', 0),
+('Steph','&7C,Mt67@)skZO3','Steph','Ann', 30, 'stepha@email.com', '07853388831', 0)
 ;
 
 INSERT INTO orders(order_date, fk_accounts_id) VALUES
