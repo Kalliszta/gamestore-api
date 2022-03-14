@@ -141,30 +141,16 @@ public class OrdersServiceTest {
 		//given
 		//some things set up using setUpForEach
 		id = 1L;
-
+		Optional<Orders> optOrder = Optional.of(new Orders(1L, 1L, Timestamp.valueOf("2022-03-12 13:08:45.000")));
 		//when
+		Mockito.when(this.repo.findById(id)).thenReturn(optOrder);
 		Mockito.when(this.repo.existsById(id)).thenReturn(false);
 		
 		//then
 		assertThat(this.service.delete(id)).isTrue();
 		
 		//verify
-		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
-	}
-	
-	@Test
-	void testDeleteFail() {
-		//given
-		//some things set up using setUpForEach
-		id = 100L;
-
-		//when
-		Mockito.when(this.repo.existsById(id)).thenReturn(true);
-		
-		//then
-		assertThat(this.service.delete(id)).isFalse();
-		
-		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
 	}
 	
