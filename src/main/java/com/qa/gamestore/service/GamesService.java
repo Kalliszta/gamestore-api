@@ -77,8 +77,8 @@ public class GamesService implements ServiceInterface<Games> {
 		return this.repo.getGamesByCost(cost);
 	}
 	
-	public List<Games> readByOrderGame(boolean online) {
-		return this.repo.getGamesByOrderGame(online);
+	public List<Games> readByOnlineGame(boolean online) {
+		return this.repo.getGamesByOnlineGame(online);
 	}
 	
 	public List<Games> platformById(Long id) {
@@ -88,4 +88,10 @@ public class GamesService implements ServiceInterface<Games> {
 	public List<Games> genreById(Long id) {
 		return this.repo.getGamesByGenreId(id);
 	}
+	
+	public List<Games> items(Long id) {
+		return this.repo.getGamesByOrderId(id);
+	}
+
+
 }
