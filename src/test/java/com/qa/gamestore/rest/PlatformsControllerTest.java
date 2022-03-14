@@ -56,8 +56,8 @@ public class PlatformsControllerTest {
 		//set up using setUpForEach
 		List<Platforms> expectedPlatforms = Arrays.asList(
 				savedPlatform,
-				new Platforms(1L, "PS3", "PlayStation"),
-				new Platforms(1L, "Wii", "Nintendo")
+				new Platforms(2L, "PS3", "PlayStation"),
+				new Platforms(3L, "Wii", "Nintendo")
 				);
 		//when
 		Mockito.when(this.service.readAll()).thenReturn(expectedPlatforms);
