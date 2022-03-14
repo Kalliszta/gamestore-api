@@ -205,13 +205,13 @@ public class GamesControllerTest {
 				);
 		
 		//when
-		Mockito.when(this.service.readByOrderGame(online)).thenReturn(expectedGames);
+		Mockito.when(this.service.readByOnlineGame(online)).thenReturn(expectedGames);
 		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
 		//then
 		assertThat(response).isEqualTo(this.controller.getByOnlineGame(online));
 		
 		//verify
-		Mockito.verify(this.service, Mockito.times(1)).readByOrderGame(online);
+		Mockito.verify(this.service, Mockito.times(1)).readByOnlineGame(online);
 	}
 	
 	@Test
@@ -256,6 +256,26 @@ public class GamesControllerTest {
 		
 		//verify
 		Mockito.verify(this.service, Mockito.times(1)).genreById(id);
+	}
+	
+	@Test
+	void testReadByOrderId() {
+		//given
+		//set up using setUpForEach
+		id = 1L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true)
+				);
+		
+		//when
+		Mockito.when(this.service.items(id)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.items(id));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).items(id);
 	}
 
 }
