@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.qa.gamestore.domain.Accounts;
 import com.qa.gamestore.exceptions.IdNotFoundException;
+import com.qa.gamestore.exceptions.UsernameAlreadyExistsException;
 import com.qa.gamestore.repo.AccountsRepo;
 
 @Service
@@ -23,8 +24,16 @@ public class AccountsService implements ServiceInterface<Accounts> {
 	
 	@Override
 	public Accounts create(Accounts user) {
-		//TO-DO exception handling
-		return this.repo.save(user);
+		try {
+			if (repo.getByUsername(user.getUsername()).isEmpty()) {
+				return this.repo.save(user);
+			} else {
+				throw new UsernameAlreadyExistsException();
+			}
+		} catch(UsernameAlreadyExistsException userExists) {
+			//if have time save error message temporarily in a logger through doing LOGGER.debug(userExists.getMessage());
+			return null;
+		}
 	}
 	
 	@Override
@@ -34,14 +43,16 @@ public class AccountsService implements ServiceInterface<Accounts> {
 
 	@Override
 	public Accounts readById(Long id) {
-		//TO-DO exception handling
 		Optional<Accounts> opUser = this.repo.findById(id);
-		return opUser.get();
+		if (opUser.isPresent()) {
+			return opUser.get();
+		} else {
+			return null;
+		}
 	}
 
 	@Override
 	public Accounts update(Long id, Accounts newUser) {
-		//TO-DO exception handling
 		Optional<Accounts> opUser = this.repo.findById(id);
 		if (opUser.isPresent()) {
 			Accounts existingUser = opUser.get();
@@ -54,9 +65,12 @@ public class AccountsService implements ServiceInterface<Accounts> {
 	@Override
 	public boolean delete(Long id) {
 		try {
-			this.repo.deleteById(id);
+			if (repo.findById(id).isPresent()) {
+				this.repo.deleteById(id);
+			} else {
+				throw new IdNotFoundException();
+			}
 		} catch (IdNotFoundException e) {
-			//TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}
 		return !(this.repo.existsById(id)); //return true if delete successful

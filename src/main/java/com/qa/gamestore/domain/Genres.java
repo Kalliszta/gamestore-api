@@ -15,8 +15,6 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -32,13 +30,11 @@ import lombok.NonNull;
 		@NonNull
 		private String genre;
 		
-		public Genres(@NonNull String genre) {
-			super();
+		public Genres(String genre) {
 			this.genre = genre;
 		}
 
-		public Genres(Long id, @NonNull String genre) {
-			super();
+		public Genres(Long id, String genre) {
 			this.id = id;
 			this.genre = genre;
 		}

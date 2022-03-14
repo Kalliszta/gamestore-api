@@ -34,9 +34,16 @@ public class GamesService implements ServiceInterface<Games> {
 
 	@Override
 	public Games readById(Long id) {
-		//TO-DO exception handling
-		Optional<Games> opGame = this.repo.findById(id);
-		return opGame.get();
+		try {
+			Optional<Games> opGame = this.repo.findById(id);
+			if (opGame.isPresent()) {
+				return opGame.get();
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -54,9 +61,12 @@ public class GamesService implements ServiceInterface<Games> {
 	@Override
 	public boolean delete(Long id) {
 		try {
-			this.repo.deleteById(id);
+			if (repo.findById(id).isPresent()) {
+				this.repo.deleteById(id);
+			} else {
+				throw new IdNotFoundException();
+			}
 		} catch (IdNotFoundException e) {
-			//TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}
 		return !(this.repo.existsById(id)); //return true if delete successful
