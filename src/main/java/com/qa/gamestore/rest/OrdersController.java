@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.qa.gamestore.domain.Games;
+import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
 import com.qa.gamestore.service.OrdersService;
 
@@ -28,7 +30,6 @@ public class OrdersController implements ControllerInterface<Orders> {
 	@Override
 	public ResponseEntity<Orders> create(@RequestBody Orders info) {
 		return new ResponseEntity<Orders>(this.service.create(info), HttpStatus.CREATED);
-		
 	}
 	
 	//readAll - GET request
@@ -36,7 +37,6 @@ public class OrdersController implements ControllerInterface<Orders> {
 	@Override
 	public ResponseEntity<List<Orders>> get() {
 		return new ResponseEntity<List<Orders>>(this.service.readAll(), HttpStatus.OK);
-		
 	}
 	
 	//readById - GET request
@@ -60,8 +60,12 @@ public class OrdersController implements ControllerInterface<Orders> {
 		return new ResponseEntity<Boolean>(this.service.delete(id),HttpStatus.OK);
 	}
 	
-	//custom query mappings go here
+	// ### custom query mappings go below ###
 	
+	@PostMapping("/add")
+	public ResponseEntity<OrderGames> add(@RequestBody OrderGames info) {
+		return new ResponseEntity<OrderGames>(this.service.add(info), HttpStatus.ACCEPTED);
+	}
 
 	
 }
