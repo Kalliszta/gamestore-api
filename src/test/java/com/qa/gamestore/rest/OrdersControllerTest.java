@@ -15,9 +15,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import com.qa.gamestore.domain.Accounts;
+import com.qa.gamestore.domain.OrderGames;
 import com.qa.gamestore.domain.Orders;
-import com.qa.gamestore.service.AccountsService;
 import com.qa.gamestore.service.OrdersService;
 
 @SpringBootTest
@@ -126,4 +125,18 @@ public class OrdersControllerTest {
 		Mockito.verify(this.service, Mockito.times(1)).delete(id);
 	}
 
+	@Test
+	void testAdd() {
+		//given
+		OrderGames newOrderGame = new OrderGames(1L, 1L);
+		OrderGames savedOrderGame = new OrderGames(1L, 1L, 1L);
+		//when
+		Mockito.when(this.service.add(newOrderGame)).thenReturn(savedOrderGame);
+		ResponseEntity<OrderGames> response = new ResponseEntity<OrderGames>(savedOrderGame, HttpStatus.ACCEPTED);
+		//then
+		assertThat(response).isEqualTo(this.controller.add(newOrderGame));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).add(newOrderGame);
+	}
 }

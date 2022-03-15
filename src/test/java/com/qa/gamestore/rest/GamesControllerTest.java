@@ -14,6 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 import com.qa.gamestore.service.GamesService;
 
@@ -205,13 +207,13 @@ public class GamesControllerTest {
 				);
 		
 		//when
-		Mockito.when(this.service.readByOrderGame(online)).thenReturn(expectedGames);
+		Mockito.when(this.service.readByOnlineGame(online)).thenReturn(expectedGames);
 		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
 		//then
 		assertThat(response).isEqualTo(this.controller.getByOnlineGame(online));
 		
 		//verify
-		Mockito.verify(this.service, Mockito.times(1)).readByOrderGame(online);
+		Mockito.verify(this.service, Mockito.times(1)).readByOnlineGame(online);
 	}
 	
 	@Test
@@ -257,5 +259,54 @@ public class GamesControllerTest {
 		//verify
 		Mockito.verify(this.service, Mockito.times(1)).genreById(id);
 	}
+	
+	@Test
+	void testReadByOrderId() {
+		//given
+		//set up using setUpForEach
+		id = 1L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(4L, "Minecraft", "A fun game to play with friends", 7, 19.99, true)
+				);
+		
+		//when
+		Mockito.when(this.service.items(id)).thenReturn(expectedGames);
+		ResponseEntity<List<Games>> response = new ResponseEntity<List<Games>>(expectedGames, HttpStatus.OK);
+		//then
+		assertThat(response).isEqualTo(this.controller.items(id));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).items(id);
+	}
 
+	@Test
+	void testAddPlatform() {
+		//given
+		GamePlatforms newGamePlatform = new GamePlatforms(1L, 1L);
+		GamePlatforms savedGamePlatform = new GamePlatforms(1L, 1L, 1L);
+		//when
+		Mockito.when(this.service.add(newGamePlatform)).thenReturn(savedGamePlatform);
+		ResponseEntity<GamePlatforms> response = new ResponseEntity<GamePlatforms>(savedGamePlatform, HttpStatus.ACCEPTED);
+		//then
+		assertThat(response).isEqualTo(this.controller.add(newGamePlatform));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).add(newGamePlatform);
+	}
+	
+	@Test
+	void testAddGenre() {
+		//given
+		GameGenres newGameGenre = new GameGenres(1L, 1L);
+		GameGenres savedGameGenre = new GameGenres(1L, 1L, 1L);
+		//when
+		Mockito.when(this.service.add(newGameGenre)).thenReturn(savedGameGenre);
+		ResponseEntity<GameGenres> response = new ResponseEntity<GameGenres>(savedGameGenre, HttpStatus.ACCEPTED);
+		//then
+		assertThat(response).isEqualTo(this.controller.add(newGameGenre));
+		
+		//verify
+		Mockito.verify(this.service, Mockito.times(1)).add(newGameGenre);
+	}
 }

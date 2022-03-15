@@ -6,24 +6,39 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
+import com.qa.gamestore.domain.Genres;
+
+import com.qa.gamestore.domain.Platforms;
 import com.qa.gamestore.exceptions.IdNotFoundException;
+import com.qa.gamestore.repo.GameGenresRepo;
+import com.qa.gamestore.repo.GamePlatformsRepo;
 import com.qa.gamestore.repo.GamesRepo;
 
 @Service
 public class GamesService implements ServiceInterface<Games> {
 	
 	private GamesRepo repo;
+	private GamePlatformsRepo pRepo;
+	private GameGenresRepo gRepo;
+	
+	private PlatformsService pSer;
+	private GenresService gSer;
 	
 	@Autowired
-	public GamesService(GamesRepo repo) {
+	public GamesService(GamesRepo repo, GamePlatformsRepo pRepo, GameGenresRepo gRepo, PlatformsService pSer, GenresService gSer) {
 		this.repo = repo;
+		this.pRepo = pRepo;
+		this.gRepo = gRepo;
+		this.pSer =pSer;
+		this.gSer =gSer;
 	}
 	
 	
 	@Override
 	public Games create(Games game) {
-		//TO-DO exception handling
 		return this.repo.save(game);
 	}
 	
@@ -34,9 +49,16 @@ public class GamesService implements ServiceInterface<Games> {
 
 	@Override
 	public Games readById(Long id) {
-		//TO-DO exception handling
-		Optional<Games> opGame = this.repo.findById(id);
-		return opGame.get();
+		try {
+			Optional<Games> opGame = this.repo.findById(id);
+			if (opGame.isPresent()) {
+				return opGame.get();
+			} else {
+				return null;
+			}
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
@@ -54,9 +76,12 @@ public class GamesService implements ServiceInterface<Games> {
 	@Override
 	public boolean delete(Long id) {
 		try {
-			this.repo.deleteById(id);
+			if (repo.findById(id).isPresent()) {
+				this.repo.deleteById(id);
+			} else {
+				throw new IdNotFoundException();
+			}
 		} catch (IdNotFoundException e) {
-			//TO-DO deal with more specific exceptions and log them using Loggers
 			return false;
 		}
 		return !(this.repo.existsById(id)); //return true if delete successful
@@ -77,8 +102,8 @@ public class GamesService implements ServiceInterface<Games> {
 		return this.repo.getGamesByCost(cost);
 	}
 	
-	public List<Games> readByOrderGame(boolean online) {
-		return this.repo.getGamesByOrderGame(online);
+	public List<Games> readByOnlineGame(boolean online) {
+		return this.repo.getGamesByOnlineGame(online);
 	}
 	
 	public List<Games> platformById(Long id) {
@@ -88,4 +113,25 @@ public class GamesService implements ServiceInterface<Games> {
 	public List<Games> genreById(Long id) {
 		return this.repo.getGamesByGenreId(id);
 	}
+	
+	public List<Games> items(Long id) {
+		return this.repo.getGamesByOrderId(id);
+	}
+	
+	public GamePlatforms add(GamePlatforms gamePlatform) {
+		Games game = this.readById(gamePlatform.getGamesId());
+		Platforms platform = pSer.readById(gamePlatform.getPlatformsId());
+		gamePlatform.setGames(game);
+		gamePlatform.setPlatforms(platform);
+		return this.pRepo.save(gamePlatform);
+	}
+	
+	public GameGenres add(GameGenres gameGenre) {
+		Games game = this.readById(gameGenre.getGamesId());
+		Genres genre = gSer.readById(gameGenre.getGenresId());
+		gameGenre.setGames(game);
+		gameGenre.setGenres(genre);
+		return this.gRepo.save(gameGenre);
+	}
+	
 }

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.qa.gamestore.domain.Orders;
 
 @Repository
-public interface OrdersRepo extends JpaRepository<Orders, Long> {
-	
-	//TO-DO: Custom queries
+public interface OrdersRepo extends JpaRepository<Orders, Long>  {
 	
 }

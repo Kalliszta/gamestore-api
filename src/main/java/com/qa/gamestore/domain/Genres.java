@@ -13,10 +13,6 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -32,19 +28,16 @@ import lombok.NonNull;
 		@NonNull
 		private String genre;
 		
-		public Genres(@NonNull String genre) {
-			super();
+		public Genres(String genre) {
 			this.genre = genre;
 		}
 
-		public Genres(Long id, @NonNull String genre) {
-			super();
+		public Genres(Long id, String genre) {
 			this.id = id;
 			this.genre = genre;
 		}
 		
 		//relationship with gameGenres
-		@JsonManagedReference
 		@OneToMany(mappedBy= "genres", fetch = FetchType.LAZY)
 		@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 		private List<GameGenres> gameGenres;

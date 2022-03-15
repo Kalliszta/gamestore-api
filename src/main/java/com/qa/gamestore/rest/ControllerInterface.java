@@ -2,8 +2,6 @@ package com.qa.gamestore.rest;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.http.ResponseEntity;
 
 public interface ControllerInterface<T> {

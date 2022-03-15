@@ -21,9 +21,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
 
-@Disabled //used to ignore/disable class (use when testing coverage)
+//@Disabled //used to ignore/disable class (use when testing coverage)
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @AutoConfigureMockMvc
 @Sql(scripts = {"classpath:schema-test.sql","classpath:data-test.sql"}, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
@@ -228,6 +230,57 @@ import com.qa.gamestore.domain.Games;
 		
 		ResultMatcher status = MockMvcResultMatchers.status().isOk();
 		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
+	@Test
+	void testReadByOrderId() throws Exception {
+		id = 1L;
+		List<Games> expectedGames = Arrays.asList(
+				new Games(1L, "Elder Scrolls", "An RPG", 18, 15.99, true),
+				new Games(2L, "Horizon Zero Dawn", "An RPG that takes place in the future", 16, 29.99, false)
+				);
+		
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.GET, "http://localhost:8080/gamestore/orders/read/" + id + "/items");
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isOk();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGames));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
+	@Test
+	void testAddPlatform() throws Exception {
+		GamePlatforms testGamePlatform = new GamePlatforms(0L, 2L, 1L);
+		GamePlatforms expectedGamePlatform = new GamePlatforms(14L, 2L, 1L);
+			
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.POST, URL + "/add/platform")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonifier.writeValueAsString(testGamePlatform))
+				.accept(MediaType.APPLICATION_JSON);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isAccepted();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGamePlatform));
+		
+		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
+	}
+	
+	@Test
+	void testAddGenre() throws Exception {
+		GameGenres testGameGenre = new GameGenres(0L, 2L, 1L);
+		GameGenres expectedGameGenre = new GameGenres(15L, 2L, 1L);
+			
+		MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders
+				.request(HttpMethod.POST, URL + "/add/genre")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content(jsonifier.writeValueAsString(testGameGenre))
+				.accept(MediaType.APPLICATION_JSON);
+		
+		ResultMatcher status = MockMvcResultMatchers.status().isAccepted();
+		ResultMatcher content = MockMvcResultMatchers.content().json(jsonifier.writeValueAsString(expectedGameGenre));
 		
 		this.mock.perform(mockRequest).andExpect(status).andExpect(content);
 	}

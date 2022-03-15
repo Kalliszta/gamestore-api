@@ -23,7 +23,7 @@ public class OrdersTest {
 		//when
 		Long actual = existingOrder.getId();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -33,7 +33,7 @@ public class OrdersTest {
 		//when
 		Long actual = existingOrder.getAccountsId();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -41,10 +41,10 @@ public class OrdersTest {
 		//given
 		Long expected = 5L;
 		//when
-		existingOrder.setAccountsId(5L);;
+		existingOrder.setAccountsId(5L);
 		Long actual = existingOrder.getAccountsId();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -56,7 +56,7 @@ public class OrdersTest {
 		//when
 		Long actual = existingOrder.getAccountsId();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -66,7 +66,7 @@ public class OrdersTest {
 		//when
 		Date actual = existingOrder.getOrderDate();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -74,10 +74,21 @@ public class OrdersTest {
 		//given
 		Date expected = Timestamp.valueOf("2022-03-13 18:50:54.000");
 		//when
-		existingOrder.setOrderDate(Timestamp.valueOf("2022-03-13 18:50:54.000"));;
+		existingOrder.setOrderDate(Timestamp.valueOf("2022-03-13 18:50:54.000"));
 		Date actual = existingOrder.getOrderDate();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void testSetOrderDateWithNull() {
+		//given
+		Date expected = Timestamp.valueOf("2022-03-12 13:12:18.000");
+		//when
+		existingOrder.setOrderDate(null);
+		Date actual = existingOrder.getOrderDate();
+		//then
+		assertEquals(expected, actual);
 	}
 	
 	@Test
@@ -88,8 +99,9 @@ public class OrdersTest {
 		existingOrder.setAccounts(expected);
 		Accounts actual = existingOrder.getAccounts();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
+	
 	
 	@Test
 	public void testToString() {
@@ -98,6 +110,6 @@ public class OrdersTest {
 		//when
 		String actual = existingOrder.toString();
 		//then
-		assertEquals(expected,actual);
+		assertEquals(expected, actual);
 	}
 }

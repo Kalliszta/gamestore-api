@@ -13,10 +13,6 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
@@ -24,19 +20,6 @@ import lombok.NonNull;
 	@Entity
 	@NoArgsConstructor
 	public class Platforms {
-		
-		public Platforms(@NonNull String name, String company) {
-			super();
-			this.name = name;
-			this.company = company;
-		}
-		
-		public Platforms(Long id, @NonNull String name, String company) {
-			super();
-			this.id = id;
-			this.name = name;
-			this.company = company;
-		}
 		
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,11 +30,20 @@ import lombok.NonNull;
 		private String company;
 		
 		//relationship with gamePlatforms
-		@JsonManagedReference
-		@OneToMany(mappedBy= "platforms", fetch = FetchType.LAZY)
+		@OneToMany(mappedBy = "platforms", fetch = FetchType.LAZY)
 		@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
 		private List<GamePlatforms> gamePlatforms;
 		
+		public Platforms(String name, String company) {
+			this.name = name;
+			this.company = company;
+		}
+		
+		public Platforms(Long id, String name, String company) {
+			this.id = id;
+			this.name = name;
+			this.company = company;
+		}
 		
 		public void updateFields(Platforms newInfo) {
 			this.name = newInfo.getName();

@@ -14,8 +14,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.qa.gamestore.domain.GameGenres;
+import com.qa.gamestore.domain.GamePlatforms;
 import com.qa.gamestore.domain.Games;
+import com.qa.gamestore.domain.Genres;
+import com.qa.gamestore.domain.Platforms;
+import com.qa.gamestore.repo.GameGenresRepo;
+import com.qa.gamestore.repo.GamePlatformsRepo;
 import com.qa.gamestore.repo.GamesRepo;
+import com.qa.gamestore.repo.GenresRepo;
+import com.qa.gamestore.repo.PlatformsRepo;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -29,6 +37,14 @@ public class GamesServiceTest {
 	
 	@MockBean
 	private GamesRepo repo;
+	@MockBean
+	private GamePlatformsRepo gPRepo;
+	@MockBean
+	private GameGenresRepo gGRepo;
+	@MockBean
+	private PlatformsRepo pRepo;
+	@MockBean
+	private GenresRepo gRepo;
 	
 	@BeforeEach
 	void setUpForEach() { //used for values that are re-used
@@ -118,30 +134,17 @@ public class GamesServiceTest {
 		//given
 		//some things set up using setUpForEach
 		id = 1L;
+		Optional<Games> optGame = Optional.of(new Games(1L, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
 
 		//when
+		Mockito.when(this.repo.findById(id)).thenReturn(optGame);
 		Mockito.when(this.repo.existsById(id)).thenReturn(false);
 		
 		//then
 		assertThat(this.service.delete(id)).isTrue();
 		
 		//verify
-		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
-	}
-	
-	@Test
-	void testDeleteFail() {
-		//given
-		//some things set up using setUpForEach
-		id = 100L;
-
-		//when
-		Mockito.when(this.repo.existsById(id)).thenReturn(true);
-		
-		//then
-		assertThat(this.service.delete(id)).isFalse();
-		
-		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(id);
 		Mockito.verify(this.repo, Mockito.times(1)).deleteById(id);
 	}
 	
@@ -211,7 +214,7 @@ public class GamesServiceTest {
 	}
 	
 	@Test
-	void testReadByOrderGame() {
+	void testReadByGamePlatform() {
 		//given
 		//some things set up using setUpForEach
 		Boolean online = true;
@@ -223,13 +226,13 @@ public class GamesServiceTest {
 				);
 		
 		//when
-		Mockito.when(this.repo.getGamesByOrderGame(online)).thenReturn(expectedGames);
+		Mockito.when(this.repo.getGamesByOnlineGame(online)).thenReturn(expectedGames);
 		
 		//then
-		assertThat(this.service.readByOrderGame(online)).isEqualTo(expectedGames);
+		assertThat(this.service.readByOnlineGame(online)).isEqualTo(expectedGames);
 		
 		//verify
-		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOrderGame(online);
+		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOnlineGame(online);
 	}
 	
 	@Test
@@ -274,6 +277,78 @@ public class GamesServiceTest {
 		
 		//verify
 		Mockito.verify(this.repo, Mockito.times(1)).getGamesByGenreId(id);
+	}
+	
+	@Test
+	void testReadByOrderId() {
+		//given
+		//some things set up using setUpForEach
+		id = 4L;
+		List<Games> expectedGames = Arrays.asList(
+				savedGame,
+				new Games(id, "Minecraft", "A fun game to play with friends", 7, 19.99, true)
+				);
+		
+		//when
+		Mockito.when(this.repo.getGamesByOrderId(id)).thenReturn(expectedGames);
+		
+		//then
+		assertThat(this.service.items(id)).isEqualTo(expectedGames);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).getGamesByOrderId(id);
+	}
+	
+	@Test
+	void testAddPlatform() {
+		//given
+		Long gameId = 1L;
+		Long platformId = 1L;
+
+		
+		Optional<Games> optGame = Optional.of(new Games(gameId, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
+		Optional<Platforms> optPlatform = Optional.of( new Platforms(1L, "PS4", "PlayStation"));
+		GamePlatforms newGamePlatform = new GamePlatforms(1L, 1L);
+		GamePlatforms savedGamePlatform = new GamePlatforms(1L, 1L, 1L);
+		
+		//when
+		Mockito.when(this.repo.findById(gameId)).thenReturn(optGame);
+		Mockito.when(this.pRepo.findById(platformId)).thenReturn(optPlatform);
+		Mockito.when(this.gPRepo.save(newGamePlatform)).thenReturn(savedGamePlatform);	
+		
+		//then
+		assertThat(this.service.add(newGamePlatform)).isEqualTo(savedGamePlatform);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(gameId);
+		Mockito.verify(this.pRepo, Mockito.times(1)).findById(platformId);
+		Mockito.verify(this.gPRepo, Mockito.times(1)).save(newGamePlatform);
+	}
+	
+	@Test
+	void testAddGenre() {
+		//given
+		Long gameId = 1L;
+		Long genreId = 1L;
+
+		
+		Optional<Games> optGame = Optional.of(new Games(gameId, "LittleBigPlanet", "Best platformer ever", 7, 29.99, true));
+		Optional<Genres> optGenre = Optional.of( new Genres(1L, "Platformer"));
+		GameGenres newGameGenre = new GameGenres(1L, 1L);
+		GameGenres savedGameGenre = new GameGenres(1L, 1L, 1L);
+		
+		//when
+		Mockito.when(this.repo.findById(gameId)).thenReturn(optGame);
+		Mockito.when(this.gRepo.findById(genreId)).thenReturn(optGenre);
+		Mockito.when(this.gGRepo.save(newGameGenre)).thenReturn(savedGameGenre);	
+		
+		//then
+		assertThat(this.service.add(newGameGenre)).isEqualTo(savedGameGenre);
+		
+		//verify
+		Mockito.verify(this.repo, Mockito.times(1)).findById(gameId);
+		Mockito.verify(this.gRepo, Mockito.times(1)).findById(genreId);
+		Mockito.verify(this.gGRepo, Mockito.times(1)).save(newGameGenre);
 	}
 	
 }
