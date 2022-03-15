@@ -35,33 +35,33 @@ SELECT (SUM(rating) / COUNT(rating)) AS total_rating FROM ratings RIGHT OUTER JO
 ---
 
 ## Screenshots showing your postman requests and the output from the API.
-All endpoints the program has are listed below under the HTTP request they use, each request starts with the URL 'http://localhost:8080/gamestore/' followed by one of the paths below:
+All endpoints the program has are listed below under the HTTP request they use, each request starts with the URL 'http://localhost:8080/gamestore/' followed by one of the paths below (don't include brackets in the path they only specify what data to pass in for e.g. {id}):
 
 
 *POST:*
-  - accounts/create
-  - games/create
-  - games/add/platform
-  - games/add/genre
-  - platforms/create
-  - genres/create
-  - orders/create
-  - orders/add
+- accounts/create
+- games/create
+- games/add/platform
+- games/add/genre
+- platforms/create
+- genres/create
+- orders/create
+- orders/add
 
 <br />
 
 *GET:*
   - accounts/read/all
-  - accounts/read/{id}
+  - accounts/read/{id} *(account id)*
   - games/read/all
-  - games/read/{id}
-  - games/read/name/{name}
-  - games/read/age/{age}
-  - games/read/cost/{cost}
-  - games/read/online/{isOnline}
-  - games/read/platform/{id}
-  - games/read/genre/{id}
-  - orders/read/{id}/items
+  - games/read/{id} &emsp; *(game id)*
+  - games/read/name/{name} &emsp;*(game name, string)*
+  - games/read/age/{age} &emsp; *(game age rating, int, returns all less than or equal)*
+  - games/read/cost/{cost} &emsp; *(game cost, double, returns all less than or equal)*
+  - games/read/online/{isOnline} &emsp; *(whether the game is an online game, boolean - true or false)*
+  - games/read/platform/{id} &emsp; *(platform id, returns all games that have the platform with the specified id)*
+  - games/read/genre/{id} &emsp; *(genre id, returns all games that have the genre with the specified id)*
+  - orders/read/{id}/items &emsp; *(order id, returns all games in the order with the specificed id)*
   - platforms/read/all
   - platforms/read/{id}
   - genres/read/all
@@ -87,7 +87,7 @@ All endpoints the program has are listed below under the HTTP request they use, 
   - genres/remove/{id}
   - orders/remove/{id}
 
-
+Bodies
 ---
 
 ## Screenshots of your database to prove that data is being persisted.
