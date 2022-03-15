@@ -93,13 +93,22 @@ All endpoints the program has are listed below under the HTTP request they use, 
 
 ---
 
-## Screenshots of your database to prove that data is being persisted.
+## Database and data is being persisted.
 
+In order to achieve data persistence I created/reset the gamestore database (when needed) outside the program in mySQL workbench using the following commands:
 ```sql
 DROP DATABASE IF EXISTS gamestore;
 CREATE DATABASE IF NOT EXISTS gamestore;
 USE gamestore;
 ```
+
+By creating the database outside the program it means that data could have been stored before the program ever existed or was run (as long as the table names and fields would have matched the ones the table names and fields that would have been created by the program once it was created/run). Data in my program persists because data is added to tables in the database created using mySQL workbench, this information is not lost once the program stops running as it is stored outside the program/API. In addition, the program itself does not drop the tables when its run instead when its run as the program uses the same models e.g. Games class to create the games table it means it can identify if the table alrady exists, if it does, it can continue interacting with it just like before when the program was first run/run before.
+
+![data in database](https://user-images.githubusercontent.com/93586261/158425141-b362a168-be31-4aa2-9614-d042583fbf76.PNG)
+![data in games](https://user-images.githubusercontent.com/93586261/158426679-39656305-f363-43ed-8b9f-e86c246150d6.PNG)
+
+
+
 ---
 
 ## Testing
