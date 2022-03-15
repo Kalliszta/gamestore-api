@@ -10,7 +10,7 @@ Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS
 
 ---
 
-## Why did I do this / what is the projects purpose?
+## Why did I do this / what is the project's purpose?
 <p align="justify">
 My project purpose is to act as a backend for a website owned by a company who sells video games online. As part of my project I was required to handle requests but I wasn't required to create an actual frontend, as a result I used POSTMAN to act as the frontend. My program is an API that can recieve HTTP requests and deal with them in a way you would expected it to. For example a user of the program could request to see all the games with the genre 'MMORPG' using the specific endpoint which role is to deal with that request, the program would successfully retrieve the required information from the database (so all games with the MMORPG genre) and return them (in a list) to POSTMAN which would output them in a JSON format.
 </p>
@@ -25,11 +25,33 @@ Initially I overestimated the amount of time I had and underestimated the worklo
 ---
 
 ## What went well? / What didn't go as planned?
-- Custom queries
+<p align="justify">
+Before I did this project, I had previous experience with working with joined tabled in 'Visual Basic .NET' therefore I assumed due to my experiance I would quickly figure out how to join tables in Java/Spring Boot. I can accross a number of errors some of which were due to typos in my code, extra annotations such as <code>@JsonManagedReference</code> in the parent classes, missing annotations such as <code>@JsonBackReference</code> in the child classes, etc but the most complex issue I ran into was the one caused by Lombok. The issue caused by Lombok caused me to waste a few hours scratching my head, the issue it caused threw the error message <code>"Content type 'application/json;charset=UTF-8' not supported"</code> whenever I tried using an endpoint that used a POST request. As I eventually worked out the issue was being caused by Lombok e.g. by using the @AllArgsConstructor annotation Lombok was not just awaiting the variables in the class (e.g. in the Games class) to create object (a game) but also awaiting the join table variables as arguments. Once I made the all arguments contructors and contructors that take in specific values myself, I succesfully managed to join tables using the following format: 
+</p>
 
+Code in parent classes:
+``` java
+@OneToMany(mappedBy = "games", fetch = FetchType.LAZY)
+@OnDelete(action = OnDeleteAction.CASCADE) //if deleted so are its children
+private List<GamePlatforms> gamePlatforms;
+```
+Code in child classes:
+``` java
+@JsonBackReference(value = "games")
+@ManyToOne(targetEntity = Games.class, fetch = FetchType.LAZY)
+@JoinColumn(name="fk_games_id")
+private Games games;
+```
+<br />
 
-- Lombok and joined tables
-- Testing joined tables
+<p align="justify">
+As I have had practise creating custom queries before in interfaces that extend the JPARepository in other projects, I could easily create custom queries for this project. As I am familiar with SQL and not very familiar with JPQL (which JPARepository uses by default), I had o first to specify for all my custom queries to be read as native queires (SQL queries) and then I could write the query/command itself in SQL.
+</p>
+
+``` java
+@Query(value = "SELECT * FROM games LEFT OUTER JOIN game_platforms ON games.id=game_platforms.fk_games_id LEFT OUTER JOIN platforms ON platforms.id=game_platforms.fk_platforms_id WHERE platforms.id = :inputId", nativeQuery = true)
+public List<Games> getGamesByPlatformId(@Param("inputId") Long inputId);
+```
 
 ---
 
