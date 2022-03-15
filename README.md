@@ -4,7 +4,7 @@ A project I created to demonstrate skills I have learnt at my time at the 9 week
 ---
 
 ### Links
-Jira Board: https://kalg.atlassian.net/jira/software/projects/GS/boards/2/roadmap?shared=&atlOrigin=eyJpIjoiZTAxNGQ5MTNkMWQyNDM5MDkzN2Y1ODA5ZGUwYjkzNDciLCJwIjoiaiJ9
+Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS/boards/2/roadmap?shared=&atlOrigin=eyJpIjoiZTAxNGQ5MTNkMWQyNDM5MDkzN2Y1ODA5ZGUwYjkzNDciLCJwIjoiaiJ9 "Link to gamestore-API project roadmap on Jira")
 
 ![gamestoreapi_2022-03-15_11 51am](https://user-images.githubusercontent.com/93586261/158372190-a17a8ed1-e0a0-46d1-9bf6-b96b9fde691f.png)
 
