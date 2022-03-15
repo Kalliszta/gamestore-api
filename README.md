@@ -10,15 +10,26 @@ Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS
 
 ---
 
-## Why are we doing this?
+## Why did I do this / what is the projects purpose?
+<p align="justify">
+My project purpose is to act as a backend for a website owned by a company who sells video games online. As part of my project I was required to handle requests but I wasn't required to create an actual frontend, as a result I used POSTMAN to act as the frontend. My program is an API that can recieve HTTP requests and deal with them in a way you would expected it to. For example a user of the program could request to see all the games with the genre 'MMORPG' using the specific endpoint which role is to deal with that request, the program would successfully retrieve the required information from the database (so all games with the MMORPG genre) and return them (in a list) to POSTMAN which would output them in a JSON format.
+</p>
 
 ---
 
-## How I expected the challenge to go.
+## How I expected the challenge to go
+<p align="justify">
+Initially I overestimated the amount of time I had and underestimated the workload. 1 week and 3 days is not a lot to create a complex API with user hierarchies, which is why I had to scrap that feature as despite it have logical use in my program it was not a required feature for my project to have.
+</p>
 
 ---
 
 ## What went well? / What didn't go as planned?
+- Custom queries
+
+
+- Lombok and joined tables
+- Testing joined tables
 
 ---
 
@@ -38,11 +49,19 @@ Another possible improvement would inlcude having a ratings table which would al
 ```sql
 SELECT (SUM(rating) / COUNT(rating)) AS total_rating FROM ratings RIGHT OUTER JOIN games ON ratings.fk_game_id = games.id GROUP BY games.id;
 ```
+<br />
+
+>[Link to all stories/features of Jira that have been labelled as 'Won't' as they won't be a feature](https://kalg.atlassian.net/jira/software/projects/GS/boards/2/roadmap?label=Won%27t&selectedIssue=GS-15&shared=&atlOrigin=eyJpIjoiODJmZjllNWZjY2ZkNDMxZjk3OWUyY2JlOTQ3ZGMxMTQiLCJwIjoiaiJ9)
+>
+>![gamestoreapi_2022-03-15_01 10pm](https://user-images.githubusercontent.com/93586261/158441868-bae5f222-768a-4719-91ba-eb205a114e25.png)
+
+<br />
+
 ---
 
 ## List of all endpoints
 <p align="justify">
-All endpoints the program has are listed below under the HTTP request they use, each request starts with the URL 'http://localhost:8080/gamestore/' followed by one of the paths below (don't include brackets in the path they only specify what data to pass in for e.g. {id}):
+All endpoints the program has are listed below under the HTTP request they use, each request starts with the URL <strong> <code>'http://localhost:8080/gamestore/'</code> </strong> followed by one of the paths below:
 </p>
 
 | **POST** |
@@ -102,29 +121,29 @@ All endpoints the program has are listed below under the HTTP request they use, 
 
 ## Some examples of how to use POSTMAN and endpoints
 
->/accounts/create
+>Endpoint '../accounts/create' in POSTMAN with an exmaple of a JSON body to pass through to create an account
 >
 >![POSTMAN create example](https://user-images.githubusercontent.com/93586261/158430632-f9e9e1bc-3ccc-4c96-8c0f-bc7426187caa.jpg)
 
->/accounts/read/all
+>Endpoint '../accounts/read/all' in POSTMAN with an exmaple of what JSON to expect back
 >
 >![POSTMAN read-all example](https://user-images.githubusercontent.com/93586261/158433447-8be1bb9d-53fd-46c2-b225-eae9ea6f3417.jpg)
 
->/accounts/read/1
+>Endpoint '../accounts/read/1' in POSTMAN with an exmaple of what JSON to expect back
 >
 >![POSTMAN read-id example](https://user-images.githubusercontent.com/93586261/158433484-1c32a749-3ed5-4138-8a95-fff698e55dac.jpg)
 
->/accounts/update/1
+>Endpoint '../accounts/update/1' in POSTMAN with an exmaple of a JSON body to pass through to update an account
 >
 >![POSTMAN update example](https://user-images.githubusercontent.com/93586261/158433525-d0b16b12-1e91-4100-9998-c5aeac29a094.jpg)
 
->/accounts/remove/1
+>Endpoint '../accounts/remove/1' in POSTMAN with an exmaple of what to expect if account is succesfully deleted
 >
 >![POSTMAN remove example](https://user-images.githubusercontent.com/93586261/158433565-75dc3d09-52d4-49eb-8673-9bf7fe89d2d7.jpg)
 
 ---
 
-## Database and data is being persisted.
+## Database and persisted data
 
 In order to achieve data persistence I created/reset the gamestore database (when needed) outside the program in mySQL workbench using the following commands:
 ```sql
@@ -154,12 +173,12 @@ By creating the database outside the program it means that data could have been 
 All the tests, both unit tests & integration tests, I created for the gamestore API successfully passed. The tests overall exceed the required coverage of 80% (as stated by businesses) on the src/main/java, having an overall coverage of 86.7% (even with integration tests disabled with the @Disabled annotation).
 </p>
 
->Image showing coverage with integration tests disabled:
+>Image showing coverage of 86.7% with integration tests disabled:
 >
 >![Coverage (disabled integration tests) with drawings](https://user-images.githubusercontent.com/93586261/158376753-554da7f0-da17-4753-80ef-26c5a2a0f411.jpg)
 
 
 
->Image showing coverage with integration tests:
+>Image showing coverage of 86.7% with integration tests:
 >
 >![Coverage with drawings](https://user-images.githubusercontent.com/93586261/158376850-755d9798-c93b-4030-8e05-90b3562eb14c.jpg)
