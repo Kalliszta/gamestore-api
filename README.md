@@ -38,56 +38,59 @@ SELECT (SUM(rating) / COUNT(rating)) AS total_rating FROM ratings RIGHT OUTER JO
 All endpoints the program has are listed below under the HTTP request they use, each request starts with the URL 'http://localhost:8080/gamestore/' followed by one of the paths below (don't include brackets in the path they only specify what data to pass in for e.g. {id}):
 
 
-*POST:*
-- accounts/create
-- games/create
-- games/add/platform
-- games/add/genre
-- platforms/create
-- genres/create
-- orders/create
-- orders/add
+| **POST** |
+|---|
+| accounts/create |
+| games/create |
+| games/add/platform |
+| games/add/genre |
+| platforms/create |
+| genres/create |
+| orders/create |
+| orders/add |
 
 <br />
 
-*GET:*
-  - accounts/read/all
-  - accounts/read/{id} *(account id)*
-  - games/read/all
-  - games/read/{id} &emsp; *(game id)*
-  - games/read/name/{name} &emsp;*(game name, string)*
-  - games/read/age/{age} &emsp; *(game age rating, int, returns all less than or equal)*
-  - games/read/cost/{cost} &emsp; *(game cost, double, returns all less than or equal)*
-  - games/read/online/{isOnline} &emsp; *(whether the game is an online game, boolean - true or false)*
-  - games/read/platform/{id} &emsp; *(platform id, returns all games that have the platform with the specified id)*
-  - games/read/genre/{id} &emsp; *(genre id, returns all games that have the genre with the specified id)*
-  - orders/read/{id}/items &emsp; *(order id, returns all games in the order with the specificed id)*
-  - platforms/read/all
-  - platforms/read/{id}
-  - genres/read/all
-  - genres/read/{id}
-  - orders/read/all
-  - orders/read/{id}
+| **GET** | **Input type** |
+|---|---|
+| accounts/read/all |
+| accounts/read/{id} | *Long (account id)* |
+| games/read/all
+| games/read/{id} | *Long (game id)* |
+| games/read/name/{name} | *String (game name)* |
+| games/read/age/{age} | *Integer (game age rating)* |
+| games/read/cost/{cost} | *Double (game cost)* |
+| games/read/online/{isOnline} | *Boolean (whether the game is an online game)* |
+| games/read/platform/{id} | *Long (platform id)* |
+| games/read/genre/{id} | *Long (genre id)* |
+| orders/read/{id}/items | *Long (order id)* |
+| platforms/read/all
+| platforms/read/{id} | *Long (platform id)* |
+| genres/read/all
+| genres/read/{id} | *Long (genre id)* ||
+| orders/read/all
+| orders/read/{id} | *Long (orders id)* |
 
 <br />
 
-*PUT:*
-  - accounts/update/{id}
-  - games/update/{id}
-  - platforms/update/{id}
-  - genres/update/{id}
-  - orders/update/{id}
+| **PUT** | **Input type** |
+|---|---|
+| accounts/update/{id} | *Long (account id)* |
+| games/update/{id} | *Long (game id)* |
+| platforms/update/{id} | *Long (platform id)* |
+| genres/update/{id} | *Long (genre id)* |
+| orders/update/{id} | *Long (order id)* |
 
 <br />
 
-*DELETE:*
-  - accounts/remove/{id}
-  - games/remove/{id}
-  - platforms/remove/{id}
-  - genres/remove/{id}
-  - orders/remove/{id}
+| **DELETE** | **Input type** |
+|---|---|
+| accounts/remove/{id} | *Long (account id)* |
+| games/remove/{id} | *Long (game id)* |
+| platforms/remove/{id} | *Long (platform id)* |
+| genres/remove/{id} | *Long (genre id)* |
+| orders/remove/{id} | *Long (order id)* |
 
-Bodies
 ---
 
 ## Screenshots of your database to prove that data is being persisted.
