@@ -1,5 +1,5 @@
 # gamestore-api
-A project I created to demonstrate skills I have learnt at my time at the 9 week Software Development Bootcamp offered by QA Ltd.
+A project I have created to demonstrate skills I have learnt at my time with QA Ltd on the 9 week Software Development bootcamp course.
 
 ---
 
@@ -10,23 +10,94 @@ Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS
 
 ---
 
-## Why did I do this / what is the project's purpose?
+## Instructions to use API
+
+### 1. Have the following software installed
+
+| Software | Version |
+|---|---|
+| [Java](https://www.oracle.com/java/technologies/downloads/#java11) | 11 | 
+| [Eclipse](https://www.eclipse.org/downloads/) | 4.22.0 |
+| [mySQL Workbench](https://dev.mysql.com/downloads/windows/installer/8.0.html) | 8.0.28 |
+| [POSTMAN](https://www.postman.com/downloads/)| 9.14.0 |
+| [Spring Boot](https://spring.io/tools) | 2.6.4 |
+| [Lombok](https://projectlombok.org/download) | 1.18.22 |
+
+### 2. Create database
+
+Run the following commands within mySQL workbench (WARNING if a database called gamestore already exists it will be dropped - deleted):
+
+```sql
+DROP DATABASE IF EXISTS gamestore;
+CREATE DATABASE IF NOT EXISTS gamestore;
+```
 <p align="justify">
-My project purpose is to act as a backend for a website owned by a company who sells video games online. As part of my project I was required to handle requests but I wasn't required to create an actual frontend, as a result I used POSTMAN to act as the frontend. My program is an API that can recieve HTTP requests and deal with them in a way you would expected it to. For example a user of the program could request to see all the games with the genre 'MMORPG' using the specific endpoint which role is to deal with that request, the program would successfully retrieve the required information from the database (so all games with the MMORPG genre) and return them (in a list) to POSTMAN which would output them in a JSON format.
+You only have to run the commands above once, before you ever run the program. By running the commands you create a database locally called gamestore which the program can then create the required tables within. You can also run the commands to reset the database and remove all the tables & data stored in it, however this is not recommended as the data deleted is lost forever.
+</p>
+
+### 2.1. (Optional - Modify code & create new .jar)
+
+<details>
+<summary>Click here for instructions for Windows</summary>
+  
+<p align="justify">
+If you wish to modify the code you may, however you will be required to generate your own .jar file once you have finished modifying the code.
+</p> 
+
+>2.1.1. Once you have made any the changes, in the package explorer you simply <code>right click on the project -> Run As -> Maven clean</code> to delete any files in the target folder 
+>
+>![maven clean](https://user-images.githubusercontent.com/93586261/158578084-5a477f55-c8f0-4392-9c03-1f0d778e062c.jpg)
+  
+>2.1.2. Next in the package explorer you have to <code>right click on the project -> Run As -> Maven install</code> to build the .jar file
+>
+>![maven install](https://user-images.githubusercontent.com/93586261/158578121-bdb5b9e2-7037-4c96-bb29-98a00a48d352.jpg)
+
+>2.1.3. Refresh the package explorer
+>
+>![refresh](https://user-images.githubusercontent.com/93586261/158578188-0f71ef9e-4f59-4577-9913-62bea8e428da.jpg)
+
+  
+>2.1.4. You should find the executable .jar in the target folder
+>
+>![target folder](https://user-images.githubusercontent.com/93586261/158579059-f4b51001-7264-4be8-a772-7e56f066907f.jpg)
+
+</details>
+
+### 3. Running the API
+
+<p align="justify">
+To run the app you must use the .jar file (either the one included or one you created yourself). To use the .jar file you open the command prompt, navigate to the directory the .jar file is in then use the command then in the format <code>java -jar filename.jar</code> you run:
+</p>
+
+```
+java -jar GameStore-0.0.1-SNAPSHOT.jar
+```
+
+To stop the program simply press `Ctrl + C`
+
+>Image showing the program running in command prompt:
+>
+>![running](https://user-images.githubusercontent.com/93586261/158615288-4b245b7e-5f0a-4fee-b324-e3954977f3f9.PNG)
+
+---
+
+## Why did I do this? / What is the project's purpose?
+<p align="justify">
+My project purpose is to act as a backend for a website owned by a company who sells video games online. As part of my project I was required to handle requests but I wasn't required to create an actual frontend, as a result I used POSTMAN to act as the frontend. My program is an API that can recieve HTTP requests and deal with them in a way you would expected it to. For example a user of the program could request to see all the games with the genre 'MMORPG' using the specific endpoint that has the role to deal with that request, the program would successfully retrieve the required information from the database (so all games with the MMORPG genre) and return them (in a list) to POSTMAN which would output them in a JSON format.
 </p>
 
 ---
 
 ## How I expected the challenge to go
 <p align="justify">
-Initially I overestimated the amount of time I had and underestimated the workload. 1 week and 3 days is not a lot to create a complex API with user hierarchies, which is why I had to scrap that feature as despite it have logical use in my program it was not a required feature for my project to have.
+Initially I overestimated the amount of time I had and underestimated the workload. 1 week and 3 days is not a lot to create a complex API with user hierarchies, which is why despite it having a logical use in my program, I had to scrap the feature as it was not a required MUST have feature for my project.
 </p>
 
 ---
 
-## What went well? / What didn't go as planned?
+## What didn't go as planned? / What went well?
 <p align="justify">
-Before I did this project, I had previous experience with working with joined tabled in 'Visual Basic .NET' therefore I assumed due to my experiance I would quickly figure out how to join tables in Java/Spring Boot. I can accross a number of errors some of which were due to typos in my code, extra annotations such as <code>@JsonManagedReference</code> in the parent classes, missing annotations such as <code>@JsonBackReference</code> in the child classes, etc but the most complex issue I ran into was the one caused by Lombok. The issue caused by Lombok caused me to waste a few hours scratching my head, the issue it caused threw the error message <code>"Content type 'application/json;charset=UTF-8' not supported"</code> whenever I tried using an endpoint that used a POST request. As I eventually worked out the issue was being caused by Lombok e.g. by using the @AllArgsConstructor annotation Lombok was not just awaiting the variables in the class (e.g. in the Games class) to create object (a game) but also awaiting the join table variables as arguments. Once I made the all arguments contructors and contructors that take in specific values myself, I succesfully managed to join tables using the following format: 
+Before I did this project, I had previous experience with working with joined tabled in 'Visual Basic .NET' therefore I assumed due to my experience I would quickly figure out how to join tables in Java/Spring Boot. However this was not the case, I can accross a number of errors some of which were due to typos in my code, extra annotations such as <code>@JsonManagedReference</code> in the parent classes, missing annotations such as <code>@JsonBackReference</code> in the child classes, etc but the most complex issue I ran into was the one caused by Lombok. The issue caused by Lombok caused me to waste a few hours scratching my head, the issue it caused threw the error message <code>"Content type 'application/json;charset=UTF-8' not supported"</code> whenever I tried using an endpoint that used a HTTP POST request. As I eventually worked out, the issue was being caused by Lombok e.g. by using the @AllArgsConstructor annotation Lombok was not just awaiting the normal variables in the class (e.g. in the Games class) to create object (a game) but also awaiting the join table variables in the class as arguments. Once I made the all arguments contructors and contructors that take in specific values myself, I succesfully managed to join tables using the following format: 
 </p>
 
 Code in parent classes:
@@ -45,7 +116,7 @@ private Games games;
 <br />
 
 <p align="justify">
-As I have had practise creating custom queries before in interfaces that extend the JPARepository in other projects, I could easily create custom queries for this project. As I am familiar with SQL and not very familiar with JPQL (which JPARepository uses by default), I had o first to specify for all my custom queries to be read as native queires (SQL queries) and then I could write the query/command itself in SQL.
+As I have had practise creating custom queries before in interfaces that extend the JPARepository in other Spring Boot projects, I could easily create custom queries for this project. As I am familiar with SQL and not very familiar with JPQL (which JPARepository uses by default), I also had to specify for all my custom queries to be read as native queires (SQL queries) in addition to writing the query/command itself in SQL. In the example below, the SQL query requires to take an input for what the platforms.id must be equal to. It takes in an input through its parameters, the variable used to store the input in this scenario is called inputId. The varible is being used in the query itself by being referenced with a colon in front like so <code>:inputId</code>. The SQL query below retrieves all games from the 'games' table that are available on the platform that has the specfied id.
 </p>
 
 ``` java
@@ -55,17 +126,17 @@ public List<Games> getGamesByPlatformId(@Param("inputId") Long inputId);
 
 ---
 
-## Possible improvements for future revisions of the project.
+## Possible improvements for future revisions of the project
 <p align="justify">
-A possible way to improve this project is through implementing a user hierarchy system using Spring Boot Security. By implementing a user hierarchy, each user would be categorised either a NEWUSER, CUSTOMER or ADMIN. The create request in Accounts would be the only request accessible to a NEWUSER, which would enable them to create an account to become a CUSTOMER. To use the requests CUSTOMERs and ADMINs would need to login using their username and password (which are already stored in the accounts table when a new account is created). CUSTOMERs would be able to interact/modify data that is about them/associated with them from the accounts and orders tables through having authorisation to only a limited amount of requests. CUSTOMERs would only be able the use GET requests to interact with data stored stored in the games tables. Whereas ADMINs would be able to use any requests implemented to access data stored in any of the tables.
+A possible way to improve this project is through implementing a user hierarchy system using Spring Boot Security. By implementing a user hierarchy, each user would be categorised either a NEWUSER, CUSTOMER or ADMIN. The create request for accounts i.e. <code>../accounts/create</code> would be the only request accessible to a NEWUSER, which would enable them to create an account to become a CUSTOMER. To use all the other requests CUSTOMERs and ADMINs would need to login using their username and password (which are already stored in the accounts table when a new account is created). CUSTOMERs would only be authorised to use requests that enable them to interact/modify data that is about them/associated with them from the accounts and orders tables. CUSTOMERs would only be able the use GET requests to interact with data stored stored in the games tables. Whereas ADMINs would be able to use any requests implemented to access data stored in any of the tables in the gamestore database.
 </p>
 
 <p align="justify">
-Currently the password of each user is stored as readable plain text which is bad practise. If I had more time I would have saved an encrypted version of each account's passwords, that would have been encrypted using a hashing algorithm and adding a set salt. By doing this, when any account that tries requesting data from the accounts table which includes the password of accounts, they would only be able to retrieve/see the unreadable hashed password from which they wouldn't be able to read/understand what the original/actual password is. A hashed password although cannot be reverted can be compared to a string someone enters as their password as the same hash & salt is applied to the inputted password as to the password used original password when the account was created, therefore if the two hashed passwords match (are identical) it means the original versions would match too, so the entered password is correct.
+Currently the password of each user is stored as readable plain text which is bad practise. If I had more time I would have stored only an encrypted version of each account's passwords in the accounts table, each password would have been encrypted using a hashing algorithm and using a salt. By doing this, when any account would try requesting data from the accounts table which includes the password of accounts, they would only be able to retrieve/see the unreadable hashed password from which they wouldn't be able to read/understand what the original/actual password was/is. A hashed password although cannot be reverted can be compared to a string someone enters as their password as the same hash & salt is applied to the inputted string/password as to the password that was the original password when the account was created, therefore if the two hashed passwords match (are identical) it means the original versions would match too, so the entered string/password is the correct password.
 </p>
 
 <p align="justify">
-Another possible improvement would inlcude having a ratings table which would allow each account to review each game once. Using the ratings in the ratings table, in the games table there would be a total_rating field (with a DOUBLE data type) which would use the SQL query below to caluclate its value for each record.
+Another possible improvement would inlcude having a ratings table which would allow each account to review each game once. For this to work a new table would be needed that uses account id(s) and game id(s) as composite keys, this composite key would enforce a user to only be able to review one game once as composite key combination must be unique. The ratings table would also have a rating field that stores a rating (with an INT data type) for each record. Using the rating in the ratings table, in the games table there would be a total_rating field (with a DOUBLE data type) which would use the SQL query below to caluclate its value for each record.
 </p>
   
 ```sql
@@ -73,7 +144,7 @@ SELECT (SUM(rating) / COUNT(rating)) AS total_rating FROM ratings RIGHT OUTER JO
 ```
 <br />
 
->[Link to all stories/features of Jira that have been labelled as 'Won't' as they won't be a feature](https://kalg.atlassian.net/jira/software/projects/GS/boards/2/roadmap?label=Won%27t&selectedIssue=GS-15&shared=&atlOrigin=eyJpIjoiODJmZjllNWZjY2ZkNDMxZjk3OWUyY2JlOTQ3ZGMxMTQiLCJwIjoiaiJ9)
+>[Link to all user stories/features/tasks in Jira that have been labelled as 'Won't' as they won't be a feature](https://kalg.atlassian.net/jira/software/projects/GS/boards/2/roadmap?label=Won%27t&selectedIssue=GS-15&shared=&atlOrigin=eyJpIjoiODJmZjllNWZjY2ZkNDMxZjk3OWUyY2JlOTQ3ZGMxMTQiLCJwIjoiaiJ9)
 >
 >![gamestoreapi_2022-03-15_01 10pm](https://user-images.githubusercontent.com/93586261/158441868-bae5f222-768a-4719-91ba-eb205a114e25.png)
 
@@ -142,8 +213,8 @@ All endpoints the program has are listed below under the HTTP request they use, 
 ---
 
 ## Some examples of how to use POSTMAN and endpoints
-
->Endpoint '../accounts/create' in POSTMAN with an exmaple of a JSON body to pass through to create an account
+  
+>Endpoint '../accounts/create' in POSTMAN with an exmaple of a JSON body to pass through to create an account and what JSON to expect back
 >
 >![POSTMAN create example](https://user-images.githubusercontent.com/93586261/158430632-f9e9e1bc-3ccc-4c96-8c0f-bc7426187caa.jpg)
 
@@ -163,44 +234,45 @@ All endpoints the program has are listed below under the HTTP request they use, 
 >
 >![POSTMAN remove example](https://user-images.githubusercontent.com/93586261/158433565-75dc3d09-52d4-49eb-8673-9bf7fe89d2d7.jpg)
 
+>Endpoint '../games/add/platform' in POSTMAN with an exmaple of a JSON body to pass through to add a new relationship between an existing game and an existing platform (game with the id of 1 will now be available on the platform with the id 2). Also shows what JSON to expect back
+>
+>![POSTMAN add example](https://user-images.githubusercontent.com/93586261/158617287-d7cc6673-94f0-4faa-97a0-d8665ccd64c3.jpg)
+  
 ---
 
 ## Database and persisted data
 
-In order to achieve data persistence I created/reset the gamestore database (when needed) outside the program in mySQL workbench using the following commands:
+In order to achieve data persistence, I created/reset the gamestore database (when needed) outside the program in mySQL workbench using the following commands:
 ```sql
 DROP DATABASE IF EXISTS gamestore;
 CREATE DATABASE IF NOT EXISTS gamestore;
-USE gamestore;
 ```
 
 <p align="justify">
-By creating the database outside the program it means that data could have been stored before the program ever existed or was run (as long as the table names and fields would have matched the ones the table names and fields that would have been created by the program once it was created/run). Data in my program persists because data is added to tables in the database created using mySQL workbench, this information is not lost once the program stops running as it is stored outside the program/API. In addition, the program itself does not drop the tables when its run instead when its run as the program uses the same models e.g. Games class to create the games table it means it can identify if the table alrady exists, if it does, it can continue interacting with it just like before when the program was first run/run before.
+By creating the database outside the program it means that data could have been stored before the program ever existed or was run (as long as the table names and fields would have matched the ones the table names and fields that would have been created by the program once it was created/run). Data in my program persists because data is added to tables which are in the database gamestore that exists locally (as it was created locally using mySQL workbench). Therefore information stored is not lost once the program stops running as it is stored locally outside the program/API. In addition, the program itself does not drop the tables when its run, instead when its run as the program uses the same models/classes e.g. Games class to create the games table it means it can identify if the table alrady exists, if it does, it can continue interacting with it just like before when the program was first run/run before.
 </p>
+
+For the examples below I first ran `USE gamestore;` to start using/interacting with the gamestore database:
   
->Running the command `SELECT * FROM accounts;` to show that data still exists in the accounts table:
+>Running the command `SELECT * FROM accounts;` in mySQL Workbench to show that data still exists in the accounts table after API stopped:
 >
 >![data in database](https://user-images.githubusercontent.com/93586261/158425141-b362a168-be31-4aa2-9614-d042583fbf76.PNG)
 
->Running the command `SELECT * FROM games;` to show that data still exists in the games table:
+>Running the command `SELECT * FROM games;` in mySQL Workbench to show that data still exists in the games table after API stopped:
 >
 >![data in games](https://user-images.githubusercontent.com/93586261/158426679-39656305-f363-43ed-8b9f-e86c246150d6.PNG)
-
-
 
 ---
 
 ## Testing
 <p align="justify">
-All the tests, both unit tests & integration tests, I created for the gamestore API successfully passed. The tests overall exceed the required coverage of 80% (as stated by businesses) on the src/main/java, having an overall coverage of 86.7% (even with integration tests disabled with the @Disabled annotation).
+All the tests I created for the gamestore API, both unit tests & integration tests, successfully pass. The tests overall exceed the required coverage of 80% (as stated by businesses) on the src/main/java, having an overall coverage of 86.3% on src/main/java (even with integration tests disabled with the @Disabled annotation and Lombok bolierplate code excluded from tests).
 </p>
 
->Image showing coverage of 86.7% with integration tests disabled:
+>Image showing coverage of 86.3% with integration tests disabled:
 >
->![Coverage (disabled integration tests) with drawings](https://user-images.githubusercontent.com/93586261/158376753-554da7f0-da17-4753-80ef-26c5a2a0f411.jpg)
+>![TestCoverage (disabled integration tests)](https://user-images.githubusercontent.com/93586261/158567221-ca56776b-635a-41d3-93b9-9ee283cc95d6.jpg)
 
-
-
->Image showing coverage of 86.7% with integration tests:
+>Image showing coverage of 86.3% with integration tests:
 >
->![Coverage with drawings](https://user-images.githubusercontent.com/93586261/158376850-755d9798-c93b-4030-8e05-90b3562eb14c.jpg)
+>![TestCoverage](https://user-images.githubusercontent.com/93586261/158567260-bd1749b2-a5b8-4bae-bcfa-942d3f66e568.jpg)
