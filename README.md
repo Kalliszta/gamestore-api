@@ -38,7 +38,7 @@ You only have to run the commands above once, before you ever run the program. B
 ### 2.1. (Optional - Modify code & create new .jar)
 
 <details>
-<summary>Click here for instructions</summary>
+<summary>Click here for instructions for Windows</summary>
   
 <p align="justify">
 If you wish to modify the code you may, however you will be required to generate your own .jar file once you have finished modifying the code.
@@ -74,6 +74,10 @@ java -jar GameStore-0.0.1-SNAPSHOT.jar
 ```
 
 To stop the program simply press `Ctrl + C`
+
+>Image showing the program running in command prompt:
+>
+>![running](https://user-images.githubusercontent.com/93586261/158615288-4b245b7e-5f0a-4fee-b324-e3954977f3f9.PNG)
 
 ---
 
@@ -209,11 +213,8 @@ All endpoints the program has are listed below under the HTTP request they use, 
 ---
 
 ## Some examples of how to use POSTMAN and endpoints
-
-<details>
-<summary>Click here to view examples</summary>
   
->Endpoint '../accounts/create' in POSTMAN with an exmaple of a JSON body to pass through to create an account
+>Endpoint '../accounts/create' in POSTMAN with an exmaple of a JSON body to pass through to create an account and what JSON to expect back
 >
 >![POSTMAN create example](https://user-images.githubusercontent.com/93586261/158430632-f9e9e1bc-3ccc-4c96-8c0f-bc7426187caa.jpg)
 
@@ -233,7 +234,9 @@ All endpoints the program has are listed below under the HTTP request they use, 
 >
 >![POSTMAN remove example](https://user-images.githubusercontent.com/93586261/158433565-75dc3d09-52d4-49eb-8673-9bf7fe89d2d7.jpg)
 
-</details>
+>Endpoint '../games/add/platform' in POSTMAN with an exmaple of a JSON body to pass through to add a new relationship between an existing game and an existing platform (game with the id of 1 will now be available on the platform with the id 2). Also shows what JSON to expect back
+>
+>![POSTMAN add example](https://user-images.githubusercontent.com/93586261/158617287-d7cc6673-94f0-4faa-97a0-d8665ccd64c3.jpg)
   
 ---
 
