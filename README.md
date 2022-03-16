@@ -10,9 +10,9 @@ Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS
 
 ---
 
-## Instructions to use
+## Instructions to use API
 
-1. Have the following software installed
+### 1. Have the following software installed
 
 | Software | Version |
 |---|---|
@@ -23,7 +23,7 @@ Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS
 | [Spring Boot](https://spring.io/tools) | 2.6.4 |
 | [Lombok](https://projectlombok.org/download) | 1.18.22 |
 
-2. Create database
+### 2. Create database
 
 Run the following commands within mySQL workbench (WARNING if a database called gamestore already exists it will be dropped - deleted):
 
@@ -36,33 +36,35 @@ USE gamestore;
 You only have to run the commands above once, before you ever run the program. By running the commands you create a database locally called gamestore which the program can then create the required tables within. You can also run the commands to reset the database and remove all the tables & data stored in it, however this is not recommended as the data deleted is lost forever.
 </p>
 
+### 2.1. (Optional - Modify code & create new .jar)
+
 <details>
-<summary>2.1. (Optional - Modify code & create new .jar)</summary>
+<summary>Click here for instructions</summary>
   
 <p align="justify">
 If you wish to modify the code you may, however you will be required to generate your own .jar file once you have finished modifying the code. 
 </p> 
 
-  >2.1.1. Once you have made any the changes, in the package explorer you simply <code>right click on the project -> Run As -> Maven clean</code> to delete any files in the target folder 
-  >
-  >![maven clean](https://user-images.githubusercontent.com/93586261/158578084-5a477f55-c8f0-4392-9c03-1f0d778e062c.jpg)
+>2.1.1. Once you have made any the changes, in the package explorer you simply <code>right click on the project -> Run As -> Maven clean</code> to delete any files in the target folder 
+>
+>![maven clean](https://user-images.githubusercontent.com/93586261/158578084-5a477f55-c8f0-4392-9c03-1f0d778e062c.jpg)
   
-  >2.1.2. Next in the package explorer you have to <code>right click on the project -> Run As -> Maven install</code> to build the .jar file
-  >
-  >![maven install](https://user-images.githubusercontent.com/93586261/158578121-bdb5b9e2-7037-4c96-bb29-98a00a48d352.jpg)
+>2.1.2. Next in the package explorer you have to <code>right click on the project -> Run As -> Maven install</code> to build the .jar file
+>
+>![maven install](https://user-images.githubusercontent.com/93586261/158578121-bdb5b9e2-7037-4c96-bb29-98a00a48d352.jpg)
 
-  >2.1.3. Refresh the package explorer
-  >
-  >![refresh](https://user-images.githubusercontent.com/93586261/158578188-0f71ef9e-4f59-4577-9913-62bea8e428da.jpg)
+>2.1.3. Refresh the package explorer
+>
+>![refresh](https://user-images.githubusercontent.com/93586261/158578188-0f71ef9e-4f59-4577-9913-62bea8e428da.jpg)
 
   
-  >2.1.4. You should find the executable .jar in the target folder
-  >
-  >![target folder](https://user-images.githubusercontent.com/93586261/158579059-f4b51001-7264-4be8-a772-7e56f066907f.jpg)
+>2.1.4. You should find the executable .jar in the target folder
+>
+>![target folder](https://user-images.githubusercontent.com/93586261/158579059-f4b51001-7264-4be8-a772-7e56f066907f.jpg)
 
 </details>
 
-3. (Use .jar file given)
+### 3. (Use .jar file given)
 
 <p align="justify">
 To use the .jar file you open the command prompt, navigate to the root of the project then use the command then in the format <code>java -jar filename.jar</code> you run:
@@ -252,8 +254,6 @@ By creating the database outside the program it means that data could have been 
 >
 >![data in games](https://user-images.githubusercontent.com/93586261/158426679-39656305-f363-43ed-8b9f-e86c246150d6.PNG)
 
-
-
 ---
 
 ## Testing
@@ -265,10 +265,6 @@ All the tests, both unit tests & integration tests, I created for the gamestore 
 >
 >![TestCoverage (disabled integration tests)](https://user-images.githubusercontent.com/93586261/158567221-ca56776b-635a-41d3-93b9-9ee283cc95d6.jpg)
 
-
-
-
 >Image showing coverage of 86.3% with integration tests:
 >
 >![TestCoverage](https://user-images.githubusercontent.com/93586261/158567260-bd1749b2-a5b8-4bae-bcfa-942d3f66e568.jpg)
-
