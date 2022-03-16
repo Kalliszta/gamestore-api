@@ -10,6 +10,72 @@ Jira Board: [gamestore-API](https://kalg.atlassian.net/jira/software/projects/GS
 
 ---
 
+## Instructions to use
+
+1. Have the following software installed
+
+| Software | Version |
+|---|---|
+| [Java](https://www.oracle.com/java/technologies/downloads/#java11) | 11 | 
+| [Eclipse](https://www.eclipse.org/downloads/) | 4.22.0 |
+| [mySQL Workbench](https://dev.mysql.com/downloads/windows/installer/8.0.html) | 8.0.28 |
+| [POSTMAN](https://www.postman.com/downloads/)| 9.14.0 |
+| [Spring Boot](https://spring.io/tools) | 2.6.4 |
+| [Lombok](https://projectlombok.org/download) | 1.18.22 |
+
+2. Create database
+
+Run the following commands within mySQL workbench (WARNING if a database called gamestore already exists it will be dropped - deleted):
+
+```sql
+DROP DATABASE IF EXISTS gamestore;
+CREATE DATABASE IF NOT EXISTS gamestore;
+USE gamestore;
+```
+<p align="justify">
+You only have to run the commands above once, before you ever run the program. By running the commands you create a database locally called gamestore which the program can then create the required tables within. You can also run the commands to reset the database and remove all the tables & data stored in it, however this is not recommended as the data deleted is lost forever.
+</p>
+
+<details>
+<summary>2.1. (Optional - Modify code & create new .jar)</summary>
+  
+<p align="justify">
+If you wish to modify the code you may, however you will be required to generate your own .jar file once you have finished modifying the code. 
+</p> 
+
+  >2.1.1. Once you have made any the changes, in the package explorer you simply <code>right click on the project -> Run As -> Maven clean</code> to delete any files in the target folder 
+  >
+  >![maven clean](https://user-images.githubusercontent.com/93586261/158578084-5a477f55-c8f0-4392-9c03-1f0d778e062c.jpg)
+  
+  >2.1.2. Next in the package explorer you have to <code>right click on the project -> Run As -> Maven install</code> to build the .jar file
+  >
+  >![maven install](https://user-images.githubusercontent.com/93586261/158578121-bdb5b9e2-7037-4c96-bb29-98a00a48d352.jpg)
+
+  >2.1.3. Refresh the package explorer
+  >
+  >![refresh](https://user-images.githubusercontent.com/93586261/158578188-0f71ef9e-4f59-4577-9913-62bea8e428da.jpg)
+
+  
+  >2.1.4. You should find the executable .jar in the target folder
+  >
+  >![target folder](https://user-images.githubusercontent.com/93586261/158579059-f4b51001-7264-4be8-a772-7e56f066907f.jpg)
+
+</details>
+
+3. (Use .jar file given)
+
+<p align="justify">
+To use the .jar file you open the command prompt, navigate to the root of the project then use the command then in the format <code>java -jar filename.jar</code> you run:
+</p>
+
+```
+java -jar GameStore-0.0.1-SNAPSHOT.jar
+```
+
+To stop the program simply press `Ctrl + C`
+
+---
+
 ## Why did I do this / what is the project's purpose?
 <p align="justify">
 My project purpose is to act as a backend for a website owned by a company who sells video games online. As part of my project I was required to handle requests but I wasn't required to create an actual frontend, as a result I used POSTMAN to act as the frontend. My program is an API that can recieve HTTP requests and deal with them in a way you would expected it to. For example a user of the program could request to see all the games with the genre 'MMORPG' using the specific endpoint which role is to deal with that request, the program would successfully retrieve the required information from the database (so all games with the MMORPG genre) and return them (in a list) to POSTMAN which would output them in a JSON format.
@@ -192,15 +258,17 @@ By creating the database outside the program it means that data could have been 
 
 ## Testing
 <p align="justify">
-All the tests, both unit tests & integration tests, I created for the gamestore API successfully passed. The tests overall exceed the required coverage of 80% (as stated by businesses) on the src/main/java, having an overall coverage of 86.7% (even with integration tests disabled with the @Disabled annotation).
+All the tests, both unit tests & integration tests, I created for the gamestore API successfully passed. The tests overall exceed the required coverage of 80% (as stated by businesses) on the src/main/java, having an overall coverage of 86.3% (even with integration tests disabled with the @Disabled annotation and lombok bolierplate excluded from tests).
 </p>
 
->Image showing coverage of 86.7% with integration tests disabled:
+>Image showing coverage of 86.3% with integration tests disabled:
 >
->![Coverage (disabled integration tests) with drawings](https://user-images.githubusercontent.com/93586261/158376753-554da7f0-da17-4753-80ef-26c5a2a0f411.jpg)
+>![TestCoverage (disabled integration tests)](https://user-images.githubusercontent.com/93586261/158567221-ca56776b-635a-41d3-93b9-9ee283cc95d6.jpg)
 
 
 
->Image showing coverage of 86.7% with integration tests:
+
+>Image showing coverage of 86.3% with integration tests:
 >
->![Coverage with drawings](https://user-images.githubusercontent.com/93586261/158376850-755d9798-c93b-4030-8e05-90b3562eb14c.jpg)
+>![TestCoverage](https://user-images.githubusercontent.com/93586261/158567260-bd1749b2-a5b8-4bae-bcfa-942d3f66e568.jpg)
+
